@@ -1,0 +1,45 @@
+{
+    "name": "zf-metal/email-campaigns",
+    "description": "Zend Framework 3 Module that provides email campaigns",
+    "type": "library",
+    "license": "MIT",
+    "version": "1.0.0",
+    "keywords": [
+
+    ],
+    "authors": [{
+            "name": "Cristian Incarnato",
+            "email": "cincarnato@gmail.com",
+            "homepage": "http://cincarnato.com.ar/",
+            "role": "Desarrollador"
+        },
+        {
+            "name": "Alejandro Furgeri",
+            "email": "alesitoman@gmail.com",
+            "homepage": "http://devfactory.com.ar/",
+            "role": "Desarrollador"
+        }
+    ],
+    "minimum-stability": "dev",
+    "config": {
+        "process-timeout": 5000
+    },
+    "require": {
+        "php": ">=5.6",
+        "zendframework/zend-mvc": "^3.0.4",
+        "zendframework/zend-view": "^2.8",
+        "zendframework/zend-http": "~2.2",
+        "zendframework/zend-paginator": "~2.2",
+        "zf-metal/log": "^1.0.0",
+        "zf-metal/mail": "^1.0.0",
+        "zf-metal/security": "^1.0.9",
+        "zf-metal/commons": "^1.1.5",
+        "zf-metal/datagrid": "^1.0.1",
+        "zf-metal/generator": "^1.0.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "ZfMetal\\EmailCampaigns\\": "src/"
+        }
+    }
+}

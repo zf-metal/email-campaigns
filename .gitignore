@@ -1,0 +1,6 @@
+/nbproject/
+composer.phar
+composer.lock
+.idea
+vendor/
+phpunit.xml
