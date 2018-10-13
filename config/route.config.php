@@ -3,7 +3,7 @@
 return [
     'router' => [
         'routes' => [
-            'ZfMetal/EmailCampaigns' => [
+            'ZfMetal_EmailCampaigns' => [
                 'mayTerminate' => false,
                 'options' => [
                     'route' => '/email-campaigns',
