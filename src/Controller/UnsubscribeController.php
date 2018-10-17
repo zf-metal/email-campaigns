@@ -74,7 +74,7 @@ class UnsubscribeController extends AbstractActionController
       $view->setTerminal(true);
 
       // This is the way to change render(view)..
-      $view->setTemplate('email-campaigns/unsubscribe/confirmation');
+      $view->setTemplate('zf-metal/email-campaigns/unsubscribe/confirmation');
 
       return $view;
     }

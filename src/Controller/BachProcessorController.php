@@ -145,7 +145,7 @@ class BachProcessorController extends AbstractActionController
               $campaignRecord   = $campaignRecords[$j];
               $result = $this->processCampaignsRecord($template, $campaignRecord, $attachedFiles);
               $state = $result ? self::CAMPAIGN_RECORD_PROCESS : self::CAMPAIGN_RECORD_FAILED;
-              $campaignRecord->getSentDate(new \DateTime());
+              $campaignRecord->setSentDate(new \DateTime());
               $campaignRecord->setState($this->getEm()->getReference(\ZfMetal\EmailCampaigns\Entity\CampaignRecordState::class,$state));
               $this->getEm()->persist($campaign);
               if($j % 100 == 0){
@@ -173,9 +173,8 @@ class BachProcessorController extends AbstractActionController
     }
 
     private function processCampaignsRecord($template, $campaignRecord, $attachedFiles){
-
-      $this->mailManager()->setBodyWithHtmlContent($t,'email-campaigns/template/unsubscribe',[
-       'url' => $this->getUrlForUnsubscribe($campaignRecord->getDistributionList()->getId(), $campaignRecord->getDistributionRecord()->getId())
+      $this->mailManager()->setBodyWithHtmlContent($template,'zf-metal/email-campaigns/template/unsubscribe',[
+        'url' => $this->getUrlForUnsubscribe($campaignRecord->getDistributionList()->getId(), $campaignRecord->getDistributionRecord()->getId())
       ]);
       $this->mailManager()->setFrom($campaignRecord->getDistributionList()->getOriginEmail());
       $this->mailManager()->setTo($campaignRecord->getDistributionRecord()->getEmail(), $campaignRecord->getDistributionRecord()->getFirstName());

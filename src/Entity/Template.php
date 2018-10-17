@@ -86,7 +86,7 @@ class Template
 
     public function getFile_fp()
     {
-        return __DIR__ . "/../../../../public/uploads/" .$this->file;
+        return __DIR__ . "/../../../../../public/uploads/" .$this->file;
     }
 
     public function __toString()
