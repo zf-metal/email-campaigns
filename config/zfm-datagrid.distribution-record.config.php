@@ -14,20 +14,20 @@ return [
             'multi_filter_config' => [
                 'enable' => true,
                 'properties_disabled' => [
-                    
+
                 ],
             ],
             'multi_search_config' => [
                 'enable' => false,
                 'properties_enabled' => [
-                    
+
                 ],
             ],
             'formConfig' => [
                 'columns' => \ZfMetal\Commons\Consts::COLUMNS_ONE,
                 'style' => \ZfMetal\Commons\Consts::STYLE_VERTICAL,
                 'groups' => [
-                    
+
                 ],
             ],
             'columnsConfig' => [
@@ -36,7 +36,35 @@ return [
                 ],
                 'distributionList' => [
                     'type' => 'relational',
+                    'displayName' => 'Distribution List',
                 ],
+                'firstName' => [
+                    'displayName' => 'First Name',
+                ],
+                'lastName' => [
+                    'displayName' => 'Last Name',
+                ],
+                'email' => [
+                    'displayName' => 'Email',
+                ],
+                'phone' => [
+                    'displayName' => 'Phone',
+                ],
+                'customerField1' => [
+                    'displayName' => 'CustomerField1',
+                    'hidden' => true
+                ],
+                'customerField2' => [
+                    'displayName' => 'CustomerField2',
+                    'hidden' => true
+                ],
+                'customerField3' => [
+                    'displayName' => 'CustomerField3',
+                    'hidden' => true
+                ],
+                'subscription' => [
+                    'displayName' => 'Subscription',
+                ]
             ],
             'crudConfig' => [
                 'enable' => true,

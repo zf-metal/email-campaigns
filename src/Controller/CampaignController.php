@@ -60,6 +60,7 @@ class CampaignController extends AbstractActionController
 
     public function gridAction()
     {
+        $this->grid->addExtraColumn('', ' <a class="registroBoton btn btn-primary" href="/email-campaigns/campaign-record/grid/{{id}}"><i class="material-icons">assignment</i></a> ', 'right');
         $this->grid->prepare();
         return array("grid" => $this->grid);
     }

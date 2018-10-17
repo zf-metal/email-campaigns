@@ -66,10 +66,14 @@ class CampaignRecordController extends AbstractActionController
 
     public function gridAction()
     {
+        $id = $this->params('id');
+        if($id){
+            $this->grid->getCrud()->getSource()->getQb()->andWhere('u.campaign = :id');
+            $this->grid->getCrud()->getSource()->getQb()->setParameter('id', $id);
+        }
         $this->grid->prepare();
         return array("grid" => $this->grid);
     }
 
 
 }
-

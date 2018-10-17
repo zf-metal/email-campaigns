@@ -45,7 +45,7 @@ class DistributionRecordController extends AbstractActionController
     public function __construct(\Doctrine\ORM\EntityManager $em, \ZfMetal\Datagrid\Grid $grid)
     {
         $this->em = $em;
-         $this->grid = $grid;
+        $this->grid = $grid;
     }
 
     public function getGrid()
@@ -60,6 +60,11 @@ class DistributionRecordController extends AbstractActionController
 
     public function gridAction()
     {
+        $id = $this->params('id');
+        if($id){
+            $this->grid->getCrud()->getSource()->getQb()->andWhere('u.distributionList = :id');
+            $this->grid->getCrud()->getSource()->getQb()->setParameter('id', $id);
+        }
         $this->grid->prepare();
         return array("grid" => $this->grid);
     }

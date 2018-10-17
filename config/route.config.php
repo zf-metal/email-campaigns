@@ -87,7 +87,7 @@ return [
                             'Grid' => [
                                 'mayTerminate' => true,
                                 'options' => [
-                                    'route' => '/grid',
+                                    'route' => '/grid[/:id]',
                                     'defaults' => [
                                         'controller' => \ZfMetal\EmailCampaigns\Controller\DistributionRecordController::CLASS,
                                         'action' => 'grid',
@@ -185,7 +185,7 @@ return [
                             'Grid' => [
                                 'mayTerminate' => true,
                                 'options' => [
-                                    'route' => '/grid',
+                                    'route' => '/grid[/:id]',
                                     'defaults' => [
                                         'controller' => \ZfMetal\EmailCampaigns\Controller\CampaignRecordController::CLASS,
                                         'action' => 'grid',
