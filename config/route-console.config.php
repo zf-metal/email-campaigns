@@ -24,6 +24,16 @@ return [
                         ),
                     ),
                 ),
+                'initialize_zfec_module' => array(
+                    'options' => array(
+                        // add [ and ] if optional ( ex : [<doname>] )
+                        'route' => 'initialize_zfec_module',
+                        'defaults' => array(
+                            'controller' => \ZfMetal\EmailCampaigns\Controller\InitializeController::class,
+                            'action' => 'initialize'
+                        ),
+                    ),
+                ),
             ),
         ),
     ),

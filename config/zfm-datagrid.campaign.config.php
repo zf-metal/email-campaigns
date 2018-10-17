@@ -55,6 +55,10 @@ return [
                 'state' => [
                     'displayName' => 'State',
                     'type' => 'relational',
+                    'field'=> 'webName'
+                ],
+                'subject' => [
+                    'displayName' => 'Subject',
                 ],
                 'records' => [
                     'hidden' => true,

@@ -135,13 +135,15 @@ class BachProcessorController extends AbstractActionController
     private function processCampaigns(){
       for ($i=0; $i < count($this->campaigns); $i++) {
         $campaign             = $this->campaigns[$i];
-        $template             = $campaign->getTemplate();
+        $template             = file_get_contents($campaign->getTemplate()->getFile_fp());
         $campaignRecords      = $this->getCampaignRecordsByIdWithState($campaign->getId(), self::CAMPAIGN_RECORD_NEW);
-
+        $attachedFiles        = $this->getEm()->getRepository(\ZfMetal\EmailCampaigns\Entity\AttachedFiles::class)->findBy([
+          'campaign' => $this->getEm()->getReference(\ZfMetal\EmailCampaigns\Entity\Campaign::class,$campaign->getId())
+        ]);
         try{
           for ($j=0; $j < count($campaignRecords); $j++) {
               $campaignRecord   = $campaignRecords[$j];
-              $result = $this->processCampaignsRecord($template, $campaignRecord);
+              $result = $this->processCampaignsRecord($template, $campaignRecord, $attachedFiles);
               $state = $result ? self::CAMPAIGN_RECORD_PROCESS : self::CAMPAIGN_RECORD_FAILED;
               $campaignRecord->getSentDate(new \DateTime());
               $campaignRecord->setState($this->getEm()->getReference(\ZfMetal\EmailCampaigns\Entity\CampaignRecordState::class,$state));
@@ -150,7 +152,6 @@ class BachProcessorController extends AbstractActionController
                 $this->getEm()->flush();
               }
           }
-
           $campaign->setFinishDate(new \DateTime());
           $campaign->setState($this->getEm()->getReference(\ZfMetal\EmailCampaigns\Entity\CampaignState::class,self::CAMPAIGN_FINISHED));
           $this->getEm()->persist($campaign);
@@ -166,13 +167,12 @@ class BachProcessorController extends AbstractActionController
 
     private function getCampaignRecordsByIdWithState($campainId, $state){
       return $this->getEm()->getRepository(\ZfMetal\EmailCampaigns\Entity\CampaignRecord::class)->findBy([
-        'state' => $state,
+        'state'    => $state,
         'campaign' => $this->getEm()->getReference(\ZfMetal\EmailCampaigns\Entity\Campaign::class,$campainId)
       ]);
     }
 
-    private function processCampaignsRecord($template, $campaignRecord){
-      $t              = file_get_contents($template->getFile_fp());
+    private function processCampaignsRecord($template, $campaignRecord, $attachedFiles){
 
       $this->mailManager()->setBodyWithHtmlContent($t,'email-campaigns/template/unsubscribe',[
        'url' => $this->getUrlForUnsubscribe($campaignRecord->getDistributionList()->getId(), $campaignRecord->getDistributionRecord()->getId())
@@ -180,11 +180,6 @@ class BachProcessorController extends AbstractActionController
       $this->mailManager()->setFrom($campaignRecord->getDistributionList()->getOriginEmail());
       $this->mailManager()->setTo($campaignRecord->getDistributionRecord()->getEmail(), $campaignRecord->getDistributionRecord()->getFirstName());
       $this->mailManager()->setSubject($campaignRecord->getCampaign()->getSubject());
-
-      $campainId     = $campaignRecord->getCampaign()->getId();
-      $attachedFiles = $this->getEm()->getRepository(\ZfMetal\EmailCampaigns\Entity\AttachedFiles::class)->findBy([
-        'campaign' => $this->getEm()->getReference(\ZfMetal\EmailCampaigns\Entity\Campaign::class,$campainId)
-      ]);
 
       for($i = 0; $i < count($attachedFiles); $i++){
         $a = $attachedFiles[$i];

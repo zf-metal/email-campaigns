@@ -10,6 +10,7 @@ return array(
             \ZfMetal\EmailCampaigns\Controller\BachProcessorController::class => \ZfMetal\EmailCampaigns\Factory\Controller\BachProcessorControllerFactory::class,
             \ZfMetal\EmailCampaigns\Controller\UnsubscribeController::class => \ZfMetal\EmailCampaigns\Factory\Controller\UnsubscribeControllerFactory::class,
             \ZfMetal\EmailCampaigns\Controller\CampaignRecordController::class => \ZfMetal\EmailCampaigns\Factory\Controller\CampaignRecordControllerFactory::class,
+            \ZfMetal\EmailCampaigns\Controller\InitializeController::class => \ZfMetal\EmailCampaigns\Factory\Controller\InitializeControllerFactory::class,
         ),
     ),
 );

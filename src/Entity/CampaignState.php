@@ -43,40 +43,76 @@ class CampaignState
      */
     public $webName = null;
 
+    /**
+     * Get the value of Id
+     *
+     * @return mixed
+     */
     public function getId()
     {
         return $this->id;
     }
 
+    /**
+     * Set the value of Id
+     *
+     * @param mixed id
+     *
+     * @return self
+     */
     public function setId($id)
     {
         $this->id = $id;
+
+        return $this;
     }
 
+    /**
+     * Get the value of Name
+     *
+     * @return mixed
+     */
     public function getName()
     {
         return $this->name;
     }
 
+    /**
+     * Set the value of Name
+     *
+     * @param mixed name
+     *
+     * @return self
+     */
     public function setName($name)
     {
         $this->name = $name;
+
+        return $this;
     }
 
+    /**
+     * Get the value of Web Name
+     *
+     * @return mixed
+     */
     public function getWebName()
     {
         return $this->webName;
     }
 
+    /**
+     * Set the value of Web Name
+     *
+     * @param mixed webName
+     *
+     * @return self
+     */
     public function setWebName($webName)
     {
         $this->webName = $webName;
-    }
 
-    public function __toString()
-    {
-        return (string) $this->name;
+        return $this;
     }
-
 
 }
