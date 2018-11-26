@@ -57,7 +57,7 @@ class InitializeController extends AbstractActionController
             $campaignState          = $this->getEm()
                                            ->getRepository(\ZfMetal\EmailCampaigns\Entity\CampaignState::class)
                                            ->find($c['id']);
-            if (!$campaignRecordState){
+            if (!$campaignState){
                 $campaignState      = new \ZfMetal\EmailCampaigns\Entity\CampaignState();
             }
             $campaignState
