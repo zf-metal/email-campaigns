@@ -37,6 +37,7 @@ return [
                 'campaign' => [
                     'displayName' => 'Campaign',
                     'type' => 'relational',
+                    'hidden' => true
                 ],
                 'distributionList' => [
                     'displayName' => 'Distribution List',
