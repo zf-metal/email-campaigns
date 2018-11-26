@@ -70,17 +70,17 @@ return [
                 'enable' => true,
                 'displayName' => null,
                 'add' => [
-                    'enable' => true,
+                    'enable' => false,
                     'class' => ' glyphicon glyphicon-plus cursor-pointer',
                     'value' => '',
                 ],
                 'edit' => [
-                    'enable' => true,
+                    'enable' => false,
                     'class' => ' glyphicon glyphicon-edit cursor-pointer',
                     'value' => '',
                 ],
                 'del' => [
-                    'enable' => true,
+                    'enable' => false,
                     'class' => ' glyphicon glyphicon-trash cursor-pointer',
                     'value' => '',
                 ],

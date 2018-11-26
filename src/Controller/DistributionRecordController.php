@@ -2,6 +2,7 @@
 
 namespace ZfMetal\EmailCampaigns\Controller;
 
+use Zend\Form\Element\Hidden;
 use Zend\Mvc\Controller\AbstractActionController;
 use ZfMetal\EmailCampaigns\Entity\DistributionList;
 
@@ -77,6 +78,12 @@ class DistributionRecordController extends AbstractActionController
 
             $this->grid->getCrud()->getSource()->getQb()->andWhere('u.distributionList = :id');
             $this->grid->getCrud()->getSource()->getQb()->setParameter('id', $id);
+
+            $this->grid->getCrudForm()->remove('distributionList');
+            $distributionListField = new Hidden('distributionList');
+            $distributionListField->setValue($id);
+            $this->grid->getCrudForm()->add($distributionListField);
+
         }
         $this->grid->prepare();
         return array("grid" => $this->grid, "distributionList" => $distributionList);
