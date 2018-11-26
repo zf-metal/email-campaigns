@@ -3,6 +3,7 @@
 namespace ZfMetal\EmailCampaigns\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
+use ZfMetal\Mail\MailManager;
 
 class BachProcessorController extends AbstractActionController
 {
@@ -29,6 +30,24 @@ class BachProcessorController extends AbstractActionController
 
     private $campaigns;
 
+    /**
+     * @var \ZfMetal\Mail\MailManager
+     */
+    private $mailManager;
+
+    /**
+     * BachProcessorController constructor.
+     *
+     * @param \Doctrine\ORM\EntityManager $em
+     * @param \ZfMetal\Mail\MailManager $mailManager
+     */
+    public function __construct(\Doctrine\ORM\EntityManager $em, \ZfMetal\Mail\MailManager $mailManager)
+    {
+        $this->em = $em;
+        $this->mailManager = $mailManager;
+    }
+
+
     public function getEm()
     {
         return $this->em;
@@ -49,10 +68,7 @@ class BachProcessorController extends AbstractActionController
         return $this->getEm()->getRepository(self::ENTITY);
     }
 
-    public function __construct(\Doctrine\ORM\EntityManager $em)
-    {
-        $this->em = $em;
-    }
+ 
 
     public function activateCampaignAction(){
         $this->campaigns = $this->getCampaignWithState(self::CAMPAIGN_NEW);
@@ -172,20 +188,32 @@ class BachProcessorController extends AbstractActionController
       ]);
     }
 
+    /**
+     * @param $template
+     * @param $campaignRecord
+     * @param $attachedFiles
+     * @return bool
+     */
     private function processCampaignsRecord($template, $campaignRecord, $attachedFiles){
-      $this->mailManager()->setBodyWithHtmlContent($template,'zf-metal/email-campaigns/template/unsubscribe',[
+        
+        
+      /**
+       * $this->mailManager MailManager::class
+       */  
+      $this->mailManager->setBodyWithHtmlContent($template,'zf-metal/email-campaigns/template/unsubscribe',[
         'url' => $this->getUrlForUnsubscribe($campaignRecord->getDistributionList()->getId(), $campaignRecord->getDistributionRecord()->getId())
       ]);
-      $this->mailManager()->setFrom($campaignRecord->getDistributionList()->getOriginEmail());
-      $this->mailManager()->setTo($campaignRecord->getDistributionRecord()->getEmail(), $campaignRecord->getDistributionRecord()->getFirstName());
-      $this->mailManager()->setSubject($campaignRecord->getCampaign()->getSubject());
+
+      $this->mailManager->setFrom($campaignRecord->getDistributionList()->getOriginEmail());
+      $this->mailManager->setTo($campaignRecord->getDistributionRecord()->getEmail(), $campaignRecord->getDistributionRecord()->getFirstName());
+      $this->mailManager->setSubject($campaignRecord->getCampaign()->getSubject());
 
       for($i = 0; $i < count($attachedFiles); $i++){
         $a = $attachedFiles[$i];
-        $this->mailManager()->attachFile($attachedFiles[$i]->getName(), $attachedFiles[$i]->getFile());
+        $this->mailManager->attachFile($attachedFiles[$i]->getName(), $attachedFiles[$i]->getFile());
       }
 
-      if ($this->mailManager()->send()) {
+      if ($this->mailManager->send()) {
           $this->logger()->info("El registro " . $campaignRecord->getId() . " se proceso correctamente.");
           return true;
       } else {
