@@ -32,9 +32,10 @@
         "zendframework/zend-paginator": "~2.2",
         "zf-metal/log": "^1.0.0",
         "zf-metal/mail": "^1.0.0",
-        "zf-metal/security": "^1.0.9",
         "zf-metal/commons": "^1.1.5",
-        "zf-metal/datagrid": "^1.0.1",
+        "zf-metal/datagrid": "^1.0.1"
+    },
+    "require-dev": {
         "zf-metal/generator": "^1.0.4"
     },
     "autoload": {
