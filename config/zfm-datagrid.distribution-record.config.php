@@ -37,6 +37,7 @@ return [
                 'distributionList' => [
                     'type' => 'relational',
                     'displayName' => 'Distribution List',
+                    'hidden' => true
                 ],
                 'firstName' => [
                     'displayName' => 'First Name',

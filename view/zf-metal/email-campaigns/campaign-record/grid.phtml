@@ -1,1 +1,4 @@
+<?php if($distributionList): ?>
+    <h3>Campaña:  <?php echo $campaign->getId(); ?> - <?php echo $campaign->getSubject(); ?></h3>
+<?php endif; ?>
 <?php echo $this->Grid($this->grid); ?>

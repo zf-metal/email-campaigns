@@ -3,6 +3,7 @@
 namespace ZfMetal\EmailCampaigns\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
+use ZfMetal\EmailCampaigns\Entity\Campaign;
 
 /**
  * CampaignRecordController
@@ -48,10 +49,15 @@ class CampaignRecordController extends AbstractActionController
         return $this->getEm()->getRepository(self::ENTITY);
     }
 
+    public function getCampaignRepository()
+    {
+        return $this->getEm()->getRepository(Campaign::class);
+    }
+
     public function __construct(\Doctrine\ORM\EntityManager $em, \ZfMetal\Datagrid\Grid $grid)
     {
         $this->em = $em;
-         $this->grid = $grid;
+        $this->grid = $grid;
     }
 
     public function getGrid()
@@ -67,12 +73,20 @@ class CampaignRecordController extends AbstractActionController
     public function gridAction()
     {
         $id = $this->params('id');
-        if($id){
+        if ($id) {
+
+
+            $campaign = $this->getCampaignRepository()->find($id);
+
+            if (!$campaign) {
+                throw new \Exception("Campaign List doesn't exist");
+            }
+
             $this->grid->getCrud()->getSource()->getQb()->andWhere('u.campaign = :id');
             $this->grid->getCrud()->getSource()->getQb()->setParameter('id', $id);
         }
         $this->grid->prepare();
-        return array("grid" => $this->grid);
+        return array("grid" => $this->grid, "campaign" => $campaign);
     }
 
 
