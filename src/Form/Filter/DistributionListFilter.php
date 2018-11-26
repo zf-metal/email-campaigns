@@ -2,6 +2,7 @@
 namespace ZfMetal\EmailCampaigns\Form\Filter;
 
 use Zend\InputFilter\InputFilter;
+use ZfMetal\Commons\Filter\RenameUpload;
 
 class DistributionListFilter extends InputFilter{
 
@@ -25,7 +26,7 @@ class DistributionListFilter extends InputFilter{
           'name' => 'distributionList',
           'required' => false,
           'filters' => array(
-              array('name' => \ZfMetal\Security\Filter\RenameUpload::class,
+              array('name' => RenameUpload::class,
                   "options" =>
                       [
                       "target" => 'uploads',
