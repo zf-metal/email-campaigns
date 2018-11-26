@@ -70,6 +70,10 @@ class InitializeController extends AbstractActionController
 
         $this->getEm()->flush();
 
+
+        $this->moveExampleFile();
+
+
         return 'OK' . PHP_EOL;
     }
 
@@ -83,4 +87,14 @@ class InitializeController extends AbstractActionController
         return $this->em;
     }
 
+
+    private function moveExampleFile()
+    {
+
+        $result = copy(__DIR__.'/../../data/distributionListExample.csv', './public/files/distributionListExample.csv');
+
+        if(!$result){
+            throw new \Exception("Falla al mover el ejemplo");
+        }
+    }
 }
