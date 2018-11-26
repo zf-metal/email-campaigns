@@ -3,6 +3,7 @@
 namespace ZfMetal\EmailCampaigns\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
+use ZfMetal\Commons\Filter\RenameUpload;
 
 /**
  * CampaignController
@@ -110,7 +111,7 @@ class CampaignController extends AbstractActionController
         //"target":"public/audiosTemporales","use_upload_name":1,"overwrite":1
         if( !empty($files[$i]["name"]) ){
             $path = $this->emailCampaignsOptions()->getPathAttachedFiles();
-            $filter = new \ZfMetal\Security\Filter\RenameUpload([
+            $filter = new RenameUpload([
               'target' => $path,
               'use_upload_name' => true,
               'overwrite' => true
