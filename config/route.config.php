@@ -219,6 +219,30 @@ return [
                             ],
                         ],
                     ],
+                    'TemplateGenerator' => [
+                        'mayTerminate' => false,
+                        'options' => [
+                            'route' => '/template-generator',
+                            'defaults' => [
+                                'controller' => \ZfMetal\EmailCampaigns\Controller\TemplateGeneratorController::CLASS,
+                                'action' => 'index',
+                            ],
+                        ],
+                        'type' => 'Literal',
+                        'child_routes' => [
+                            'Index' => [
+                                'mayTerminate' => true,
+                                'options' => [
+                                    'route' => '/index',
+                                    'defaults' => [
+                                        'controller' => \ZfMetal\EmailCampaigns\Controller\TemplateGeneratorController::CLASS,
+                                        'action' => 'index',
+                                    ],
+                                ],
+                                'type' => 'Segment',
+                            ],
+                        ],
+                    ],
                 ],
             ],
         ],
