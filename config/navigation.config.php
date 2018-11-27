@@ -45,6 +45,12 @@ return [
                         'icon' => '',
                         'route' => 'ZfMetal_EmailCampaigns/PictureRepository/Grid',
                     ],
+                    [
+                        'label' => 'Template Generator',
+                        'detail' => '',
+                        'icon' => '',
+                        'route' => 'ZfMetal_EmailCampaigns/TemplateGenerator/Index',
+                    ],
                 ],
             ],
         ],

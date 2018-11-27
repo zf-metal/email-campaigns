@@ -12,6 +12,7 @@ return array(
             \ZfMetal\EmailCampaigns\Controller\CampaignRecordController::class => \ZfMetal\EmailCampaigns\Factory\Controller\CampaignRecordControllerFactory::class,
             \ZfMetal\EmailCampaigns\Controller\InitializeController::class => \ZfMetal\EmailCampaigns\Factory\Controller\InitializeControllerFactory::class,
             \ZfMetal\EmailCampaigns\Controller\PictureRepositoryController::class => \ZfMetal\EmailCampaigns\Factory\Controller\PictureRepositoryControllerFactory::class,
+            \ZfMetal\EmailCampaigns\Controller\TemplateGeneratorController::class => \ZfMetal\EmailCampaigns\Factory\Controller\TemplateGeneratorControllerFactory::class,
         ),
     ),
 );
