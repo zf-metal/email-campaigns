@@ -39,6 +39,12 @@ return [
 //                        'icon' => '',
 //                        'route' => 'ZfMetal_EmailCampaigns/CampaignRecord/Grid',
 //                    ],
+                    [
+                        'label' => 'Pictures Repository',
+                        'detail' => '',
+                        'icon' => '',
+                        'route' => 'ZfMetal_EmailCampaigns/PictureRepository/Grid',
+                    ],
                 ],
             ],
         ],

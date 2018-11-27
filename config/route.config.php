@@ -195,6 +195,30 @@ return [
                             ],
                         ],
                     ],
+                    'PictureRepository' => [
+                        'mayTerminate' => false,
+                        'options' => [
+                            'route' => '/picture-repository',
+                            'defaults' => [
+                                'controller' => \ZfMetal\EmailCampaigns\Controller\PictureRepositoryController::CLASS,
+                                'action' => 'grid',
+                            ],
+                        ],
+                        'type' => 'Literal',
+                        'child_routes' => [
+                            'Grid' => [
+                                'mayTerminate' => true,
+                                'options' => [
+                                    'route' => '/grid',
+                                    'defaults' => [
+                                        'controller' => \ZfMetal\EmailCampaigns\Controller\PictureRepositoryController::CLASS,
+                                        'action' => 'grid',
+                                    ],
+                                ],
+                                'type' => 'Segment',
+                            ],
+                        ],
+                    ],
                 ],
             ],
         ],

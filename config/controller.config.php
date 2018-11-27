@@ -11,6 +11,7 @@ return array(
             \ZfMetal\EmailCampaigns\Controller\UnsubscribeController::class => \ZfMetal\EmailCampaigns\Factory\Controller\UnsubscribeControllerFactory::class,
             \ZfMetal\EmailCampaigns\Controller\CampaignRecordController::class => \ZfMetal\EmailCampaigns\Factory\Controller\CampaignRecordControllerFactory::class,
             \ZfMetal\EmailCampaigns\Controller\InitializeController::class => \ZfMetal\EmailCampaigns\Factory\Controller\InitializeControllerFactory::class,
+            \ZfMetal\EmailCampaigns\Controller\PictureRepositoryController::class => \ZfMetal\EmailCampaigns\Factory\Controller\PictureRepositoryControllerFactory::class,
         ),
     ),
 );

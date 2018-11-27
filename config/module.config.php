@@ -15,7 +15,8 @@ include "zfm-datagrid.campaign-record.config.php",
 include "zfm-datagrid.campaign.config.php",
 include "zfm-datagrid.distribution-list.config.php",
 include "zfm-datagrid.distribution-record.config.php",
-include "zfm-datagrid.template.config.php"
+include "zfm-datagrid.template.config.php",
+include "zfm-datagrid.picture.config.php"
 );
 
 return $setting;
