@@ -100,7 +100,7 @@ class DistributionRecordController extends AbstractActionController
             $this->getEm()->flush();
             $this->flashMessenger()->addSuccessMessage('Se canceló correctamente la suscripción del contacto "' . $distributionRecord->getEmail() . '" a la lista "' . $distributionRecord->getDistributionList()->getNameList() . '".');
         }
-        return $this->redirect()->toUrl('/email-campaigns/distribution-record/grid');
+        return $this->redirect()->toUrl('/email-campaigns/distribution-record/grid/'.$id);
     }
 
 }
