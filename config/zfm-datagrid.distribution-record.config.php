@@ -33,11 +33,12 @@ return [
             'columnsConfig' => [
                 'id' => [
                     'displayName' => 'ID',
+                    'priority' => 10,
                 ],
                 'distributionList' => [
                     'type' => 'relational',
-                    'displayName' => 'Distribution List',
-                    'hidden' => true
+                    'priority' => 20,
+                    'displayName' => 'Distribution List'
                 ],
                 'firstName' => [
                     'displayName' => 'First Name',
@@ -65,6 +66,9 @@ return [
                 ],
                 'subscription' => [
                     'displayName' => 'Subscription',
+                    'type' => "boolean",
+                    'valueWhenTrue' => '<span class="text-success">Subscribed</span>',
+                    'valueWhenFalse' => '<span class="text-danger">Unsubscribed</span>'
                 ]
             ],
             'crudConfig' => [

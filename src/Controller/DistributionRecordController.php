@@ -12,7 +12,8 @@ class DistributionRecordController extends AbstractActionController
 {
 
     const ENTITY = \ZfMetal\EmailCampaigns\Entity\DistributionRecord::class;
-
+    const SUBSCRIPTION_ACTIVE   = 1;
+    const SUBSCRIPTION_INACTIVE = 0;
     /**
      * @var \Doctrine\ORM\EntityManager
      */
@@ -67,20 +68,39 @@ class DistributionRecordController extends AbstractActionController
     public function gridAction()
     {
         $id = $this->params('id');
+        $distributionList = null;
         if ($id) {
-
             $distributionList = $this->getDistributionListRepository()->find($id);
-
             if (!$distributionList) {
                 throw new \Exception("Distribution List doesn't exist");
             }
 
             $this->grid->getCrud()->getSource()->getQb()->andWhere('u.distributionList = :id');
             $this->grid->getCrud()->getSource()->getQb()->setParameter('id', $id);
+            $config = $this->grid->getColumnsConfig();
+            $config['distributionList']['hidden'] = true;
+            $this->grid->setColumnsConfig($config);
         }
+
+        $this->grid->addExtraColumn('Desuscribir', '<a class="registroBoton btn btn-primary" title="Desuscribir" href="/email-campaigns/distribution-record/unsubscribe/{{id}}"><span class="glyphicon glyphicon-remove"></span></a> ', 'right');
         $this->grid->prepare();
+
         return array("grid" => $this->grid, "distributionList" => $distributionList);
     }
 
+    public function unsubscribeAction() {
+        $id = $this->params('id');
+        if($id){
+            $distributionRecord = $this->getEntityRepository()->find($id);
+            if (!$distributionRecord) {
+                throw new \Exception("Distribution Record not found");
+            }
+            $distributionRecord->setSubscription(self::SUBSCRIPTION_INACTIVE);
+            $this->getEm()->persist($distributionRecord);
+            $this->getEm()->flush();
+            $this->flashMessenger()->addSuccessMessage('Se canceló correctamente la suscripción del contacto "' . $distributionRecord->getEmail() . '" a la lista "' . $distributionRecord->getDistributionList()->getNameList() . '".');
+        }
+        return $this->redirect()->toUrl('/email-campaigns/distribution-record/grid');
+    }
 
 }

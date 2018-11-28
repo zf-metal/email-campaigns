@@ -9,8 +9,9 @@ use Zend\Mvc\Controller\AbstractActionController;
  */
 class DistributionListController extends AbstractActionController
 {
-    const ENTITY              = \ZfMetal\EmailCampaigns\Entity\DistributionList::class;
-    const SUBSCRIPTION_ACTIVE = 1;
+    const ENTITY                = \ZfMetal\EmailCampaigns\Entity\DistributionList::class;
+    const SUBSCRIPTION_ACTIVE   = 1;
+    const SUBSCRIPTION_INACTIVE = 0;
     /**
      * @var \Doctrine\ORM\EntityManager
      */
