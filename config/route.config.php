@@ -95,6 +95,17 @@ return [
                                 ],
                                 'type' => 'Segment',
                             ],
+                            'Unsubscribe' => [
+                                'mayTerminate' => true,
+                                'options' => [
+                                    'route' => '/unsubscribe/:id',
+                                    'defaults' => [
+                                        'controller' => \ZfMetal\EmailCampaigns\Controller\DistributionRecordController::CLASS,
+                                        'action' => 'unsubscribe',
+                                    ],
+                                ],
+                                'type' => 'Segment',
+                            ],
                         ],
                     ],
                     'Campaign' => [
