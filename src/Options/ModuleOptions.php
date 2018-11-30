@@ -5,11 +5,11 @@ namespace ZfMetal\EmailCampaigns\Options;
 class ModuleOptions extends \Zend\Stdlib\AbstractOptions
 {
 
-    private $urlDomain = 'http://localhost/';
+    private $urlDomain = '';
 
     private $searchCampaignLimit = '5';
 
-    private $pathAttachedFiles = '/tmp';
+    private $pathAttachedFiles = './files';
 
     public function getUrlDomain()
     {

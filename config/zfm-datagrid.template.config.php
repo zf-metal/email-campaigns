@@ -33,9 +33,11 @@ return [
             'columnsConfig' => [
                 'id' => [
                     'displayName' => 'ID',
+                    'priority' => 10
                 ],
                 'name' => [
-                    'displayName' => 'Name',
+                    'displayName' => 'Nombre',
+                    'priority' => 20
                 ],
                 'file' => [
                     'displayName' => 'File',

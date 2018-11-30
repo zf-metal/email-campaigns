@@ -33,9 +33,16 @@ return [
             'columnsConfig' => [
                 'id' => [
                     'displayName' => 'ID',
+                    'priority' => 10
                 ],
                 'file' => [
-                    'displayName' => 'Name',
+                    'displayName' => 'Imagen',
+                    'type' => 'file',
+                    'webpath' => '/pictures/',
+                    'width' => '5vh',
+                 //   'height' => '10vh',
+                    'showFile' => true,
+                    'priority' => 12
                 ]
             ],
             'crudConfig' => [
@@ -47,7 +54,7 @@ return [
                     'value' => '',
                 ],
                 'edit' => [
-                    'enable' => true,
+                    'enable' => false,
                     'class' => ' glyphicon glyphicon-edit cursor-pointer',
                     'value' => '',
                 ],
@@ -57,7 +64,7 @@ return [
                     'value' => '',
                 ],
                 'view' => [
-                    'enable' => true,
+                    'enable' => false,
                     'class' => ' glyphicon glyphicon-list-alt cursor-pointer',
                     'value' => '',
                 ],

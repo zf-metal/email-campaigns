@@ -33,15 +33,19 @@ return [
             'columnsConfig' => [
                 'id' => [
                     'displayName' => 'ID',
+                    'priority' => 10
                 ],
                 'nameList' => [
-                    'displayName' => 'List Name',
-                ],
+                    'displayName' => 'Nombre',
+                    'priority' => 20
+            ],
                 'originEmail' => [
-                    'displayName' => 'Email Originator',
+                    'displayName' => 'Email Remitente',
+                    'priority' => 30
                 ],
                 'originName' => [
-                    'displayName' => 'Name Originator',
+                    'displayName' => 'Nombre Remitente',
+                    'priority' => 40
                 ],
                 'records' => [
                     'hidden' => true,
@@ -56,7 +60,7 @@ return [
                     'value' => '<a data-toggle="tooltip" class="btn btn-primary btn-sm glyphicon glyphicon-plus cursor-pointer" title="Nuevo" href="new-edit"></a>',
                 ],
                 'edit' => [
-                    'enable' => false,
+                    'enable' => true,
                     'class' => '',
                     'value' => '<a data-toggle="tooltip" class="glyphicon glyphicon-edit cursor-pointer" title="Nuevo" href="new-edit/{{id}}"></a>',
                 ],

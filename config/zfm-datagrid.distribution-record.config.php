@@ -38,37 +38,37 @@ return [
                 'distributionList' => [
                     'type' => 'relational',
                     'priority' => 20,
-                    'displayName' => 'Distribution List'
+                    'displayName' => 'Lista'
                 ],
                 'firstName' => [
-                    'displayName' => 'First Name',
+                    'displayName' => 'Nombre',
                 ],
                 'lastName' => [
-                    'displayName' => 'Last Name',
+                    'displayName' => 'Apellido',
                 ],
                 'email' => [
                     'displayName' => 'Email',
                 ],
                 'phone' => [
-                    'displayName' => 'Phone',
+                    'displayName' => 'Telefono',
                 ],
                 'customerField1' => [
-                    'displayName' => 'CustomerField1',
+                    'displayName' => 'Clave1',
                     'hidden' => true
                 ],
                 'customerField2' => [
-                    'displayName' => 'CustomerField2',
+                    'displayName' => 'Clave2',
                     'hidden' => true
                 ],
                 'customerField3' => [
-                    'displayName' => 'CustomerField3',
+                    'displayName' => 'Clave3',
                     'hidden' => true
                 ],
                 'subscription' => [
-                    'displayName' => 'Subscription',
+                    'displayName' => 'Subscripcion',
                     'type' => "boolean",
-                    'valueWhenTrue' => '<span class="text-success">Subscribed</span>',
-                    'valueWhenFalse' => '<span class="text-danger">Unsubscribed</span>'
+                    'valueWhenTrue' => '<span class=" alert-success">Subscribed</span>',
+                    'valueWhenFalse' => '<span class="alert-danger">Unsubscribed</span>'
                 ]
             ],
             'crudConfig' => [

@@ -17,7 +17,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @license
  * @link
  * @ORM\Table(name="zfec_pictures_repository")
- * @ORM\Entity(repositoryClass="EmailCampaigns\Repository\PictureRepository")
+ * @ORM\Entity(repositoryClass="\ZfMetal\EmailCampaigns\Repository\PictureRepository")
  */
 class Picture
 {
@@ -37,9 +37,12 @@ class Picture
      * @Annotation\Attributes({"type":"file"})
      * @Annotation\Options({"label":"file","absolutepath":"./public/pictures/","webpath":"/pictures/",
      * "description":""})
+     * @Annotation\Validator({"name":"UniqueObject",
+     * "options":{"use_context": true, "fields":"file", "object_repository":"\ZfMetal\EmailCampaigns\Entity\Picture",
+     *     "messages": {"objectNotUnique":"Ya existe una imagen con ese nombre."} }})
      * @Annotation\Filter({"name":"\ZfMetal\Commons\Filter\RenameUpload",
      * "options":{"target":"public/pictures","use_upload_name":1,"overwrite":1}})
-     * @ORM\Column(type="string", length=0, unique=false, nullable=false, name="file")
+     * @ORM\Column(type="string", length=0, unique=true, nullable=false, name="file")
      */
     public $file = null;
 

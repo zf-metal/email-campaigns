@@ -1,17 +1,9 @@
-<?php $this->headStyle()->captureStart() ?>
-<?php include __DIR__ . '/../../../asset/css/jquery.dm-uploader.min.css'; ?>
-<?php $this->headStyle()->captureEnd() ?>
-<?php $this->headScript()->captureStart() ?>
-    // add plain css or include a file like this:
-    <?php include __DIR__ . '/../../../asset/js/jquery.dm-uploader.min.js'; ?>
-<?php $this->headScript()->captureEnd() ?>
-
 <?php $this->layoutHelper()->setPageTitle('Gestión de Campañas'); ?>
 <?php
   $this->flashCurrent();
 ?>
 <div class="panel">
   <div class="panel-body">
-    <?= $this->renderForm($this->form) ?>
+    <?= $this->renderForm($this->form, "horizontal") ?>
   </div>
 </div>

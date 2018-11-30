@@ -33,38 +33,51 @@ return [
             'columnsConfig' => [
                 'id' => [
                     'displayName' => 'ID',
+                    'priority' => 10
                 ],
                 'distributionList' => [
-                    'displayName' => 'Distribution List',
+                    'displayName' => 'Lista',
                     'type' => 'relational',
+                    'priority' => 20
                 ],
                 'template' => [
                     'displayName' => 'Template',
                     'type' => 'relational',
+                    'priority' => 30
                 ],
                 'createDate' => [
-                    'displayName' => 'Created Date',
+                    'displayName' => 'Creado',
                     'type' => 'date',
                     'format' => 'Y-m-d H:i:s',
+                    'priority' => 40
                 ],
                 'finishDate' => [
-                    'displayName' => 'Finish Date',
+                    'displayName' => 'Finalizado',
                     'type' => 'date',
                     'format' => 'Y-m-d H:i:s',
+                    'priority' => 40
                 ],
                 'state' => [
-                    'displayName' => 'State',
+                    'displayName' => 'Estado',
                     'type' => 'relational',
-                    'field'=> 'webName'
+                    'field'=> 'webName',
+                    'priority' => 12
                 ],
                 'subject' => [
-                    'displayName' => 'Subject',
+                    'displayName' => 'Asunto',
+                    'priority' => 15
                 ],
                 'records' => [
                     'hidden' => true,
                 ],
                 'attachedFiles' => [
-                    'hidden' => true,
+                    'displayName' => 'Adjuntos',
+                    'type' => 'relational',
+                    'reloationalId' => 'campaign',
+                    'reloationalEntity' => \ZfMetal\EmailCampaigns\Entity\AttachedFiles::class,
+                    'oneToMany' => true,
+                    'field' => 'file',
+                    'hidden' => false,
                 ],
             ],
             'crudConfig' => [
@@ -76,7 +89,7 @@ return [
                     'value' => '<a data-toggle="tooltip" class="btn btn-primary btn-sm glyphicon glyphicon-plus cursor-pointer" title="Nuevo" href="new-edit"></a>',
                 ],
                 'edit' => [
-                    'enable' => true,
+                    'enable' => false,
                     'class' => ' glyphicon glyphicon-edit cursor-pointer',
                     'value' => '',
                 ],

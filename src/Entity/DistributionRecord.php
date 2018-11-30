@@ -28,7 +28,7 @@ class DistributionRecord
 
     /**
      * @Annotation\Type("DoctrineModule\Form\Element\ObjectSelect")
-     * @Annotation\Options({"label":"distributionList","empty_option": "",
+     * @Annotation\Options({"label":"Lista","empty_option": "",
      * "target_class":"\ZfMetal\EmailCampaigns\Entity\DistributionList", "description":""})
      * @ORM\ManyToOne(targetEntity="\ZfMetal\EmailCampaigns\Entity\DistributionList")
      * @ORM\JoinColumn(name="distribution_list_id", referencedColumnName="id",
@@ -39,7 +39,7 @@ class DistributionRecord
     /**
      * @Annotation\Type("Zend\Form\Element\Text")
      * @Annotation\Attributes({"type":"text"})
-     * @Annotation\Options({"label":"firstName", "description":"", "addon":""})
+     * @Annotation\Options({"label":"Nombre", "description":"", "addon":""})
      * @ORM\Column(type="string", length=50, unique=false, nullable=true,
      * name="first_name")
      */
@@ -48,7 +48,7 @@ class DistributionRecord
     /**
      * @Annotation\Type("Zend\Form\Element\Text")
      * @Annotation\Attributes({"type":"text"})
-     * @Annotation\Options({"label":"lastName", "description":"", "addon":""})
+     * @Annotation\Options({"label":"Apellido", "description":"", "addon":""})
      * @ORM\Column(type="string", length=50, unique=false, nullable=true,
      * name="last_name")
      */
@@ -57,7 +57,7 @@ class DistributionRecord
     /**
      * @Annotation\Type("Zend\Form\Element\Text")
      * @Annotation\Attributes({"type":"text"})
-     * @Annotation\Options({"label":"email", "description":"", "addon":""})
+     * @Annotation\Options({"label":"Email", "description":"", "addon":""})
      * @ORM\Column(type="string", length=100, unique=false, nullable=true,
      * name="email")
      */
@@ -66,7 +66,7 @@ class DistributionRecord
     /**
      * @Annotation\Type("Zend\Form\Element\Text")
      * @Annotation\Attributes({"type":"text"})
-     * @Annotation\Options({"label":"phone", "description":"", "addon":""})
+     * @Annotation\Options({"label":"Telefono", "description":"", "addon":""})
      * @ORM\Column(type="string", length=14, unique=false, nullable=true, name="phone")
      */
     public $phone = null;
@@ -74,7 +74,7 @@ class DistributionRecord
     /**
      * @Annotation\Type("Zend\Form\Element\Text")
      * @Annotation\Attributes({"type":"text"})
-     * @Annotation\Options({"label":"customerField1", "description":"", "addon":""})
+     * @Annotation\Options({"label":"Clave1", "description":"", "addon":""})
      * @ORM\Column(type="string", length=100, unique=false, nullable=true,
      * name="customer_field1")
      */
@@ -83,7 +83,7 @@ class DistributionRecord
     /**
      * @Annotation\Type("Zend\Form\Element\Text")
      * @Annotation\Attributes({"type":"text"})
-     * @Annotation\Options({"label":"customerField2", "description":"", "addon":""})
+     * @Annotation\Options({"label":"Clave2", "description":"", "addon":""})
      * @ORM\Column(type="string", length=100, unique=false, nullable=true,
      * name="customer_field2")
      */
@@ -92,16 +92,16 @@ class DistributionRecord
     /**
      * @Annotation\Type("Zend\Form\Element\Text")
      * @Annotation\Attributes({"type":"text"})
-     * @Annotation\Options({"label":"customerField3", "description":"", "addon":""})
+     * @Annotation\Options({"label":"Clave3", "description":"", "addon":""})
      * @ORM\Column(type="string", length=100, unique=false, nullable=true,
      * name="customer_field3")
      */
     public $customerField3 = null;
 
     /**
-     * @Annotation\Type("Zend\Form\Element\Text")
-     * @Annotation\Attributes({"type":"text"})
-     * @Annotation\Options({"label":"subscription", "description":"", "addon":""})
+     * @Annotation\Type("Zend\Form\Element\Checkbox")
+     * @Annotation\Attributes({"type":"checkbox"})
+     * @Annotation\Options({"label":"Suscripción Activa", "description":"", "addon":""})
      * @ORM\Column(type="integer", length=1, unique=false, nullable=true,
      * name="subscription")
      */

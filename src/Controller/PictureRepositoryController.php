@@ -66,10 +66,43 @@ class PictureRepositoryController extends AbstractActionController
 
     public function gridAction()
     {
-        $this->grid->addExtraColumn('Link', ' <a title="Link" target="_blank" class="btn btn-primary" href="/pictures/{{file}}"> <span class="glyphicon glyphicon-download" aria-hidden="true"></span></a> ', 'right');
-        $this->grid->prepare();
+
+        $baseUrl =$this->getBaseUrl();
+        $this->grid->addExtraColumn('Link', $baseUrl.'/pictures/{{file}}', 'right');
+        $this->grid->addExtraColumn('Descargar', ' <a title="Link" target="_blank" class="btn btn-primary" href="/pictures/{{file}}"> <span class="glyphicon glyphicon-download" aria-hidden="true"></span></a> ', 'right');
+
+
+        $this->grid->getCrudForm()->add(array(
+            'name' => 'id',
+            'attributes' => array(
+                'type' => 'hidden',
+            )
+        ));
+
+
+        try{
+            $this->grid->prepare();
+        }catch (\Doctrine\DBAL\Exception\UniqueConstraintViolationException $e) {
+            return "El nombre de la imagen ya existe";
+        }
+
 
         return array("grid" => $this->grid);
+    }
+
+    public function duplicadaAction()
+    {
+
+    }
+
+    private function getBaseUrl(){
+        if(isset($_SERVER['HTTPS'])){
+            $protocol = ($_SERVER['HTTPS'] && $_SERVER['HTTPS'] != "off") ? "https" : "http";
+        }
+        else{
+            $protocol = 'http';
+        }
+        return $protocol . "://" . $_SERVER['SERVER_NAME'];
     }
 
 
