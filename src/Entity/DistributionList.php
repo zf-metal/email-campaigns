@@ -62,6 +62,15 @@ class DistributionList
      */
     public $records = null;
 
+    /**
+     * DistributionList constructor.
+     */
+    public function __construct()
+    {
+        $this->records = new ArrayCollection();
+    }
+
+
     public function getId()
     {
         return $this->id;

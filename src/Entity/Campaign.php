@@ -68,7 +68,7 @@ class Campaign
     /**
      * @Annotation\Exclude()
      * @ORM\OneToMany(targetEntity="\ZfMetal\EmailCampaigns\Entity\AttachedFiles",
-     * mappedBy="campaign")
+     * mappedBy="campaign", cascade={"persist", "remove"})
      */
     public $attachedFiles = null;
 
@@ -80,6 +80,23 @@ class Campaign
      * name="subject")
      */
     public $subject = null;
+
+    /**
+     * @Annotation\Type("Zend\Form\Element\Hidden")
+     * @Annotation\Attributes({"type":"hidden"})
+     * @Annotation\Type("Zend\Form\Element\Hidden")
+     * @ORM\OneToMany(targetEntity="\ZfMetal\EmailCampaigns\Entity\CampaignRecord",
+     * mappedBy="campaign", cascade={"persist", "remove"})
+     */
+    public $records = null;
+
+    /**
+     * DistributionList constructor.
+     */
+    public function __construct()
+    {
+        $this->records = new ArrayCollection();
+    }
 
     public function getId()
     {
@@ -165,6 +182,24 @@ class Campaign
     {
         return (string) $this->id;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getRecords()
+    {
+        return $this->records;
+    }
+
+    /**
+     * @param mixed $records
+     */
+    public function setRecords($records)
+    {
+        $this->records = $records;
+    }
+
+
 
 
 }
