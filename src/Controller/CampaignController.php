@@ -110,7 +110,17 @@ class CampaignController extends AbstractActionController
       for($i = 0; $i < count($files); $i++){
         //"target":"public/audiosTemporales","use_upload_name":1,"overwrite":1
         if( !empty($files[$i]["name"]) ){
+
             $path = $this->emailCampaignsOptions()->getPathAttachedFiles();
+
+            if (!file_exists($path)) {
+                $result = mkdir($path, 0755, true);
+                if (!$result) {
+                    throw new \Exception('Permission denied to create the folder: ' . $path);
+                }
+            }
+
+
             $filter = new RenameUpload([
               'target' => $path,
               'use_upload_name' => true,

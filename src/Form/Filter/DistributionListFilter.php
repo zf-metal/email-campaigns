@@ -22,6 +22,18 @@ class DistributionListFilter extends InputFilter{
           ),
       ));
 
+        $this->add(array(
+            'name' => 'originEmail',
+            'required' => true,
+
+        ));
+
+        $this->add(array(
+            'name' => 'originName',
+            'required' => true,
+
+        ));
+
       $this->add(array(
           'name' => 'distributionList',
           'required' => false,

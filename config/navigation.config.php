@@ -4,16 +4,28 @@ return [
     'navigation' => [
         'default' => [
             [
-                'label' => 'Email Campaigns',
+                'label' => 'Campañas de Email',
                 'detail' => '',
                 'icon' => '',
                 'uri' => '',
                 'pages' => [
                     [
-                        'label' => 'Distribution List',
+                        'label' => 'Campañas',
+                        'detail' => '',
+                        'icon' => '',
+                        'route' => 'ZfMetal_EmailCampaigns/Campaign/Grid',
+                    ],
+                    [
+                        'label' => 'Listas',
                         'detail' => '',
                         'icon' => '',
                         'route' => 'ZfMetal_EmailCampaigns/DistributionList/Grid',
+                    ],
+                    [
+                        'label' => 'Imagenes',
+                        'detail' => '',
+                        'icon' => '',
+                        'route' => 'ZfMetal_EmailCampaigns/PictureRepository/Grid',
                     ],
                     [
                         'label' => 'Templates',
@@ -21,32 +33,8 @@ return [
                         'icon' => '',
                         'route' => 'ZfMetal_EmailCampaigns/Template/Grid',
                     ],
-//                    [
-//                        'label' => 'Subscribers',
-//                        'detail' => '',
-//                        'icon' => '',
-//                        'route' => 'ZfMetal_EmailCampaigns/DistributionRecord/Grid',
-//                    ],
                     [
-                        'label' => 'Campaigns',
-                        'detail' => '',
-                        'icon' => '',
-                        'route' => 'ZfMetal_EmailCampaigns/Campaign/Grid',
-                    ],
-//                    [
-//                        'label' => 'Campaigns Records',
-//                        'detail' => '',
-//                        'icon' => '',
-//                        'route' => 'ZfMetal_EmailCampaigns/CampaignRecord/Grid',
-//                    ],
-                    [
-                        'label' => 'Pictures Repository',
-                        'detail' => '',
-                        'icon' => '',
-                        'route' => 'ZfMetal_EmailCampaigns/PictureRepository/Grid',
-                    ],
-                    [
-                        'label' => 'Template Generator',
+                        'label' => 'Generador de Template',
                         'detail' => '',
                         'icon' => '',
                         'route' => 'ZfMetal_EmailCampaigns/TemplateGenerator/Index',

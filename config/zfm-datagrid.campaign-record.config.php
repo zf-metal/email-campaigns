@@ -33,6 +33,7 @@ return [
             'columnsConfig' => [
                 'id' => [
                     'displayName' => 'ID',
+                    'priority' => 10
                 ],
                 'campaign' => [
                     'displayName' => 'Campaign',
@@ -40,29 +41,32 @@ return [
                     'hidden' => true
                 ],
                 'distributionList' => [
-                    'displayName' => 'Distribution List',
+                    'displayName' => 'Lista',
                     'type' => 'relational',
+                    'priority' => 12
                 ],
                 'distributionRecord' => [
-                    'displayName' => 'Distribution Record',
+                    'displayName' => 'Suscriptor',
                     'type' => 'relational',
+                    'priority' => 13
                 ],
                 'template' => [
                     'displayName' => 'Template',
                     'type' => 'relational',
+                    'priority' => 20
                 ],
                 'createdDate' => [
-                    'displayName' => 'From',
+                    'displayName' => 'Creado',
                     'type' => 'date',
                     'format' => 'Y-m-d H:i:s',
                 ],
                 'sentDate' => [
-                    'displayName' => 'Sent Date',
+                    'displayName' => 'Enviado',
                     'type' => 'date',
                     'format' => 'Y-m-d H:i:s',
                 ],
                 'state' => [
-                    'displayName' => 'State',
+                    'displayName' => 'Estado',
                     'type' => 'relational',
                 ],
             ],

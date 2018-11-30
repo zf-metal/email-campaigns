@@ -16,12 +16,12 @@ use Doctrine\ORM\EntityRepository;
 class PictureRepository extends EntityRepository
 {
 
-    public function save(\EmailCampaigns\Entity\Picture $entity)
+    public function save(\ZfMetal\EmailCampaigns\Entity\Picture $entity)
     {
         $this->getEntityManager()->persist($entity); $this->getEntityManager()->flush();
     }
 
-    public function remove(\EmailCampaigns\Entity\Picture $entity)
+    public function remove(\ZfMetal\EmailCampaigns\Entity\Picture $entity)
     {
         $this->getEntityManager()->remove($entity); $this->getEntityManager()->flush();
     }
