@@ -58,7 +58,7 @@ class DistributionList
      * @Annotation\Attributes({"type":"hidden"})
      * @Annotation\Type("Zend\Form\Element\Hidden")
      * @ORM\OneToMany(targetEntity="\ZfMetal\EmailCampaigns\Entity\DistributionRecord",
-     * mappedBy="distributionList")
+     * mappedBy="distributionList", cascade={"persist", "remove"})
      */
     public $records = null;
 
