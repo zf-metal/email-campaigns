@@ -11,6 +11,16 @@ class ModuleOptions extends \Zend\Stdlib\AbstractOptions
 
     private $pathAttachedFiles = './files';
 
+    private $distributionRecordFields = [
+      '@nombre'   => 'firstName',
+      '@apellido' => 'lastName',
+      '@email'    => 'email',
+      '@telefono' => 'phone',
+      '@c1'       => 'customerField1',
+      '@c2'       => 'customerField2',
+      '@c3'       => 'customerField3',
+    ];
+
     public function getUrlDomain()
     {
         return $this->urlDomain;
@@ -41,6 +51,14 @@ class ModuleOptions extends \Zend\Stdlib\AbstractOptions
         $this->pathAttachedFiles= $pathAttachedFiles;
     }
 
+    public function getDistributionRecordFields()
+    {
+        return $this->distributionRecordFields;
+    }
+
+    public function setDistributionRecordFields($distributionRecordFields)
+    {
+        $this->distributionRecordFields= $distributionRecordFields;
+    }
 
 }
-
