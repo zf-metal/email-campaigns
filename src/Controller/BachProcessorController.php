@@ -68,7 +68,7 @@ class BachProcessorController extends AbstractActionController
         return $this->getEm()->getRepository(self::ENTITY);
     }
 
- 
+
 
     public function activateCampaignAction(){
         $this->campaigns = $this->getCampaignWithState(self::CAMPAIGN_NEW);
@@ -195,17 +195,22 @@ class BachProcessorController extends AbstractActionController
      * @return bool
      */
     private function processCampaignsRecord($template, $campaignRecord, $attachedFiles){
-        
-        
       /**
        * $this->mailManager MailManager::class
-       */  
+       */
+      $distributionRecordFields = $this->emailCampaignsOptions()->getDistributionRecordFields();
+      $distributionRecord = $campaignRecord->getDistributionRecord();
+
+      foreach ($distributionRecordFields as $key => $value) {
+         $template = str_replace($key, $distributionRecord->__get($value), $template);
+      }
+      var_dump($template);
       $this->mailManager->setBodyWithHtmlContent($template,'zf-metal/email-campaigns/template/unsubscribe',[
-        'url' => $this->getUrlForUnsubscribe($campaignRecord->getDistributionList()->getId(), $campaignRecord->getDistributionRecord()->getId())
+        'url' => $this->getUrlForUnsubscribe($distributionRecord->getId(), $distributionRecord->getId())
       ]);
 
-      $this->mailManager->setFrom($campaignRecord->getDistributionList()->getOriginEmail());
-      $this->mailManager->setTo($campaignRecord->getDistributionRecord()->getEmail(), $campaignRecord->getDistributionRecord()->getFirstName());
+      $this->mailManager->setFrom($distributionRecord->getDistributionList()->getOriginEmail());
+      $this->mailManager->setTo($distributionRecord->getEmail(), $distributionRecord->getFirstName());
       $this->mailManager->setSubject($campaignRecord->getCampaign()->getSubject());
 
       for($i = 0; $i < count($attachedFiles); $i++){
