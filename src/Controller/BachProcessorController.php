@@ -204,7 +204,7 @@ class BachProcessorController extends AbstractActionController
       foreach ($distributionRecordFields as $key => $value) {
          $template = str_replace($key, $distributionRecord->__get($value), $template);
       }
-      var_dump($template);
+
       $this->mailManager->setBodyWithHtmlContent($template,'zf-metal/email-campaigns/template/unsubscribe',[
         'url' => $this->getUrlForUnsubscribe($distributionRecord->getId(), $distributionRecord->getId())
       ]);
