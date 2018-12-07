@@ -24,6 +24,16 @@ return [
                         ),
                     ),
                 ),
+                'test' => array(
+                    'options' => array(
+                        // add [ and ] if optional ( ex : [<doname>] )
+                        'route' => 'test',
+                        'defaults' => array(
+                            'controller' => \ZfMetal\EmailCampaigns\Controller\BachProcessorController::class,
+                            'action' => 'test'
+                        ),
+                    ),
+                ),
                 'initialize_zfec_module' => array(
                     'options' => array(
                         // add [ and ] if optional ( ex : [<doname>] )

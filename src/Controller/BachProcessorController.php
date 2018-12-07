@@ -4,11 +4,12 @@ namespace ZfMetal\EmailCampaigns\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use ZfMetal\Mail\MailManager;
+use ZfMetal\EmailCampaigns\Constants;
 
 class BachProcessorController extends AbstractActionController
 {
 
-    const ENTITY = \ZfMetal\EmailCampaigns\Entity\Campaign::class;
+    const ENTITY_CAMPAIGN = \ZfMetal\EmailCampaigns\Entity\Campaign::class;
     const CAMPAIGN_NEW            = 1;
     const CAMPAIGN_TAKED          = 2;
     const CAMPAIGN_ACTIVATED      = 3;
@@ -60,33 +61,35 @@ class BachProcessorController extends AbstractActionController
 
     public function getEntityRepository()
     {
-        return $this->getEm()->getRepository(self::ENTITY);
+        return $this->getEm()->getRepository(Constants::ENTITY_CAMPAIGN);
     }
 
     public function getCampaignRepository()
     {
-        return $this->getEm()->getRepository(self::ENTITY);
+        return $this->getEm()->getRepository(Constants::ENTITY_CAMPAIGN);
     }
 
-
+    public function testAction(){
+        var_dump(count($this->getEntityRepository()->getNewCampaigns(1)));
+    }
 
     public function activateCampaignAction(){
-        $this->campaigns = $this->getCampaignWithState(self::CAMPAIGN_NEW);
+        $this->campaigns = $this->getCampaignWithState(Constants::CAMPAIGN_NEW);
         if (count($this->campaigns) == 0){
           return 'No campaigns to process' . PHP_EOL;
         }
-        $this->setCampaignState(self::CAMPAIGN_TAKED);
+        $this->setCampaignState(Constants::CAMPAIGN_TAKED);
         $this->createChampaignRecords();
 
         return count($this->campaigns) . ' campaigns activated'  . PHP_EOL;
     }
 
     public function processCampaignAction(){
-      $this->campaigns = $this->getCampaignWithState(self::CAMPAIGN_ACTIVATED);
+      $this->campaigns = $this->getCampaignWithState(Constants::CAMPAIGN_ACTIVATED);
       if (count($this->campaigns) == 0){
         return 'No campaigns to process' . PHP_EOL;
       }
-      $this->setCampaignState(self::CAMPAIGN_IN_PROCESS);
+      $this->setCampaignState(Constants::CAMPAIGN_IN_PROCESS);
       $this->processCampaigns();
 
       return count($this->campaigns) . ' campaigns processed'  . PHP_EOL;
@@ -117,7 +120,7 @@ class BachProcessorController extends AbstractActionController
         $distributionList     = $campaign->getDistributionList();
         $distributionRecords  = $this->getEm()->getRepository(\ZfMetal\EmailCampaigns\Entity\DistributionRecord::class)->findBy([
           'distributionList' => $this->getEm()->getReference(\ZfMetal\EmailCampaigns\Entity\DistributionList::class, $distributionList->getId()),
-          'subscription'     => self::SUBSCRIPTION_ACTIVE
+          'subscription'     => Constants::SUBSCRIPTION_ACTIVE
         ]);
 
         try{
@@ -129,19 +132,19 @@ class BachProcessorController extends AbstractActionController
               ->setDistributionList($distributionList)
               ->setDistributionRecord($distributionRecord)
               ->setTemplate($template)
-              ->setState($this->getEm()->getReference(\ZfMetal\EmailCampaigns\Entity\CampaignRecordState::class,self::CAMPAIGN_NEW));
+              ->setState($this->getEm()->getReference(\ZfMetal\EmailCampaigns\Entity\CampaignRecordState::class,Constants::CAMPAIGN_NEW));
             $this->getEm()->persist($campaignRecord);
             if($j % 100 == 0){
               $this->getEm()->flush();
             }
           }
 
-          $campaign->setState($this->getEm()->getReference(\ZfMetal\EmailCampaigns\Entity\CampaignState::class,self::CAMPAIGN_ACTIVATED));
+          $campaign->setState($this->getEm()->getReference(\ZfMetal\EmailCampaigns\Entity\CampaignState::class,Constants::CAMPAIGN_ACTIVATED));
           $this->getEm()->persist($campaign);
           $this->getEm()->flush();
         } catch(\Exception $e){
           $this->logger()->err("Failed to process campaign con id " . $campaign->getId() . ". " . $e->getMessage());
-          $campaign->setState($this->getEm()->getReference(\ZfMetal\EmailCampaigns\Entity\CampaignState::class,self::CAMPAIGN_FAILED));
+          $campaign->setState($this->getEm()->getReference(\ZfMetal\EmailCampaigns\Entity\CampaignState::class,Constants::CAMPAIGN_FAILED));
           $this->getEm()->persist($campaign);
           $this->getEm()->flush();
         }
@@ -152,7 +155,7 @@ class BachProcessorController extends AbstractActionController
       for ($i=0; $i < count($this->campaigns); $i++) {
         $campaign             = $this->campaigns[$i];
         $template             = file_get_contents($campaign->getTemplate()->getFile_fp());
-        $campaignRecords      = $this->getCampaignRecordsByIdWithState($campaign->getId(), self::CAMPAIGN_RECORD_NEW);
+        $campaignRecords      = $this->getCampaignRecordsByIdWithState($campaign->getId(), Constants::CAMPAIGN_RECORD_NEW);
         $attachedFiles        = $this->getEm()->getRepository(\ZfMetal\EmailCampaigns\Entity\AttachedFiles::class)->findBy([
           'campaign' => $this->getEm()->getReference(\ZfMetal\EmailCampaigns\Entity\Campaign::class,$campaign->getId())
         ]);
@@ -160,7 +163,7 @@ class BachProcessorController extends AbstractActionController
           for ($j=0; $j < count($campaignRecords); $j++) {
               $campaignRecord   = $campaignRecords[$j];
               $result = $this->processCampaignsRecord($template, $campaignRecord, $attachedFiles);
-              $state = $result ? self::CAMPAIGN_RECORD_PROCESS : self::CAMPAIGN_RECORD_FAILED;
+              $state = $result ? Constants::CAMPAIGN_RECORD_PROCESS : Constants::CAMPAIGN_RECORD_FAILED;
               $campaignRecord->setSentDate(new \DateTime());
               $campaignRecord->setState($this->getEm()->getReference(\ZfMetal\EmailCampaigns\Entity\CampaignRecordState::class,$state));
               $this->getEm()->persist($campaign);
@@ -169,12 +172,12 @@ class BachProcessorController extends AbstractActionController
               }
           }
           $campaign->setFinishDate(new \DateTime());
-          $campaign->setState($this->getEm()->getReference(\ZfMetal\EmailCampaigns\Entity\CampaignState::class,self::CAMPAIGN_FINISHED));
+          $campaign->setState($this->getEm()->getReference(\ZfMetal\EmailCampaigns\Entity\CampaignState::class,Constants::CAMPAIGN_FINISHED));
           $this->getEm()->persist($campaign);
           $this->getEm()->flush();
         } catch(\Exception $e){
           $this->logger()->err("Failed to process campaign con id " . $campaign->getId() . ". " . $e->getMessage());
-          $campaign->setState($this->getEm()->getReference(\ZfMetal\EmailCampaigns\Entity\CampaignState::class,self::CAMPAIGN_FAILED));
+          $campaign->setState($this->getEm()->getReference(\ZfMetal\EmailCampaigns\Entity\CampaignState::class,Constants::CAMPAIGN_FAILED));
           $this->getEm()->persist($campaign);
           $this->getEm()->flush();
         }
