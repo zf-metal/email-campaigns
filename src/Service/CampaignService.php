@@ -32,7 +32,7 @@ class CampaignService
         $campaigns = $this->getCampaignRepository()->getNewCampaigns(10);
 
         for($i = 0; $i < count($campaigns); $i++){
-            $this->processCampaign($campaigns[$i]);
+            $this->generateRecords($campaigns[$i]);
             $campaigns[$i]->setState($this->getEm()->getReference(Constants::ENTITY_CAMPAIGN_STATE,3));
             $this->getEm()->persist($campaigns[$i]);
             $this->getEm()->flush();
@@ -40,7 +40,7 @@ class CampaignService
 
         return $campaigns;
     }
-    private function processCampaign($campaign){
+    private function generateRecords($campaign){
         // TODO createChampaignRecords
     }
 }
