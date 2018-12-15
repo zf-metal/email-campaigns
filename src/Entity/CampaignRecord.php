@@ -55,14 +55,6 @@ class CampaignRecord
      */
     public $distributionRecord = null;
 
-    /**
-     * @Annotation\Type("DoctrineModule\Form\Element\ObjectSelect")
-     * @Annotation\Options({"label":"Template","empty_option": "",
-     * "target_class":"\ZfMetal\EmailCampaigns\Entity\Template", "description":""})
-     * @ORM\ManyToOne(targetEntity="\ZfMetal\EmailCampaigns\Entity\Template")
-     * @ORM\JoinColumn(name="template_id", referencedColumnName="id", nullable=false)
-     */
-    public $template = null;
 
     /**
      * @Annotation\Exclude()
@@ -189,29 +181,6 @@ class CampaignRecord
         return $this;
     }
 
-    /**
-     * Get the value of Template
-     *
-     * @return mixed
-     */
-    public function getTemplate()
-    {
-        return $this->template;
-    }
-
-    /**
-     * Set the value of Template
-     *
-     * @param mixed template
-     *
-     * @return self
-     */
-    public function setTemplate($template)
-    {
-        $this->template = $template;
-
-        return $this;
-    }
 
     /**
      * Get the value of Created Date
