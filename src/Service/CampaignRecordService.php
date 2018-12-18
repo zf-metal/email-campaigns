@@ -3,6 +3,7 @@
 namespace ZfMetal\EmailCampaigns\Service;
 
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\OptimisticLockException;
 use ZfMetal\EmailCampaigns\Constants;
 use ZfMetal\EmailCampaigns\Entity\Campaign;
 use ZfMetal\EmailCampaigns\Entity\CampaignRecord;
@@ -53,7 +54,7 @@ class CampaignRecordService
     /**
      * @param $campaign
      * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws OptimisticLockException
      */
     public function createCampaignRecords($campaign)
     {
@@ -78,8 +79,9 @@ class CampaignRecordService
 
     /**
      * @param $campaign
+     * @return bool
      * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws OptimisticLockException
      */
     public function processCampaingRecords($campaign)
     {
@@ -103,6 +105,8 @@ class CampaignRecordService
             }
         }
         $this->getEm()->flush();
+
+        return true;
     }
 
     private function processCampaingRecord(CampaignObjects $campaignObjects, DistributionRecord $distributionRecord)

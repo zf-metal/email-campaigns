@@ -37,12 +37,12 @@ class ConsoleCampaignController extends AbstractActionController
     public function activeNewCampaignsAction()
     {
         $campaigns = $this->getCampaignService()->activateCampaigns(10);
-        return count($campaigns) . ' campaigns activated';
+        return count($campaigns) . ' campaigns activated' . PHP_EOL;
     }
 
     public function processActivateCampaignsAction()
     {
         $campaigns = $this->getCampaignService()->processCampaigns(10);
-        return count($campaigns) . ' campaigns processed';
+        return count($campaigns) . ' campaigns processed' . PHP_EOL;
     }
 }
