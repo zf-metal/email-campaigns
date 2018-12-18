@@ -93,17 +93,19 @@ class CampaignMailService
      */
     public function sendEmail(DistributionRecord $distributionRecord)
     {
-        $this->distributionRecord = $distributionRecord;
-        $this->prepareEmailTemplate();
-        $this->prepareEmailHeader();
-        $this->addAttachedFiles();
-
-        if ($this->getMailManager()->send()) {
-            return true;
-        } else {
+        try {
+            $this->distributionRecord = $distributionRecord;
+            $this->prepareEmailTemplate();
+            $this->prepareEmailHeader();
+            $this->addAttachedFiles();
+            if ($this->getMailManager()->send()) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (\Exception $e) {
             return false;
         }
-
     }
 
     /**

@@ -85,26 +85,30 @@ class CampaignRecordService
      */
     public function processCampaingRecords($campaign)
     {
-        $campaignRecords = $this->getEm()->getRepository(CampaignRecord::class)->findBy([
-            'campaign' => $this->getEm()->getReference(Campaign::class, $campaign->getId())
-        ]);
-        /** @var $campaign Campaign */
-        $campaignObjects = new CampaignObjects($campaign);
+        try{
+            $campaignRecords = $this->getEm()->getRepository(CampaignRecord::class)->findBy([
+                'campaign' => $this->getEm()->getReference(Campaign::class, $campaign->getId())
+            ]);
+            /** @var $campaign Campaign */
+            $campaignObjects = new CampaignObjects($campaign);
 
-        for ($i = 0; $i < count($campaignRecords); $i++){
-            /** @var $campaignRecord CampaignRecord */
-            $campaignRecord = $campaignRecords[$i];
-            $distributionRecord = $campaignRecord->getDistributionRecord();
-            $result = $this->processCampaingRecord($campaignObjects, $distributionRecord);
-            $state = $result ? Constants::CAMPAIGN_RECORD_PROCESS : Constants::CAMPAIGN_RECORD_FAILED;
-            $campaignRecord->setState($this->getEm()->getReference(CampaignRecordState::class, $state));
-            $campaignRecord->setSentDate(new \DateTime());
-            $this->getEm()->persist($campaignRecord);
-            if ($i % 100 == 0) {
-                $this->getEm()->flush();
+            for ($i = 0; $i < count($campaignRecords); $i++){
+                /** @var $campaignRecord CampaignRecord */
+                $campaignRecord = $campaignRecords[$i];
+                $distributionRecord = $campaignRecord->getDistributionRecord();
+                $result = $this->processCampaingRecord($campaignObjects, $distributionRecord);
+                $state = $result ? Constants::CAMPAIGN_RECORD_PROCESS : Constants::CAMPAIGN_RECORD_FAILED;
+                $campaignRecord->setState($this->getEm()->getReference(CampaignRecordState::class, $state));
+                $campaignRecord->setSentDate(new \DateTime());
+                $this->getEm()->persist($campaignRecord);
+                if ($i % 100 == 0) {
+                    $this->getEm()->flush();
+                }
             }
+            $this->getEm()->flush();
+        } catch (\Exception $e) {
+            return false;
         }
-        $this->getEm()->flush();
 
         return true;
     }
