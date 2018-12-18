@@ -13,6 +13,7 @@ return array(
             \ZfMetal\EmailCampaigns\Controller\InitializeController::class => \ZfMetal\EmailCampaigns\Factory\Controller\InitializeControllerFactory::class,
             \ZfMetal\EmailCampaigns\Controller\PictureRepositoryController::class => \ZfMetal\EmailCampaigns\Factory\Controller\PictureRepositoryControllerFactory::class,
             \ZfMetal\EmailCampaigns\Controller\TemplateGeneratorController::class => \ZfMetal\EmailCampaigns\Factory\Controller\TemplateGeneratorControllerFactory::class,
+            \ZfMetal\EmailCampaigns\Controller\ConsoleCampaignController::class => \ZfMetal\EmailCampaigns\Factory\Controller\ConsoleCampaignControllerFactory::class,
         ),
     ),
 );

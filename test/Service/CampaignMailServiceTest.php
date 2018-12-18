@@ -13,7 +13,7 @@ use Zend\Test\PHPUnit\Controller\AbstractConsoleControllerTestCase;
 use ZfMetal\EmailCampaigns\Entity\DistributionRecord;
 use ZfMetal\EmailCampaigns\Entity\Template;
 use ZfMetal\EmailCampaigns\Service\CampaignMailService;
-use ZfMetal\EmailCampaigns\Service\Model\CampaignObjects;
+use ZfMetal\EmailCampaigns\Service\CampaignService;
 use ZfMetal\Mail\MailManager;
 
 class CampaignMailServiceTest extends AbstractConsoleControllerTestCase

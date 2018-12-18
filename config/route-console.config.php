@@ -24,16 +24,6 @@ return [
                         ),
                     ),
                 ),
-                'test' => array(
-                    'options' => array(
-                        // add [ and ] if optional ( ex : [<doname>] )
-                        'route' => 'test',
-                        'defaults' => array(
-                            'controller' => \ZfMetal\EmailCampaigns\Controller\BachProcessorController::class,
-                            'action' => 'test'
-                        ),
-                    ),
-                ),
                 'initialize_zfec_module' => array(
                     'options' => array(
                         // add [ and ] if optional ( ex : [<doname>] )
@@ -41,6 +31,26 @@ return [
                         'defaults' => array(
                             'controller' => \ZfMetal\EmailCampaigns\Controller\InitializeController::class,
                             'action' => 'initialize'
+                        ),
+                    ),
+                ),
+                'activeNewCampaigns' => array(
+                    'options' => array(
+                        // add [ and ] if optional ( ex : [<doname>] )
+                        'route' => 'activeNewCampaigns',
+                        'defaults' => array(
+                            'controller' => \ZfMetal\EmailCampaigns\Controller\ConsoleCampaignController::class,
+                            'action' => 'activeNewCampaigns'
+                        ),
+                    ),
+                ),
+                'processActivateCampaigns' => array(
+                    'options' => array(
+                        // add [ and ] if optional ( ex : [<doname>] )
+                        'route' => 'processActivateCampaigns',
+                        'defaults' => array(
+                            'controller' => \ZfMetal\EmailCampaigns\Controller\ConsoleCampaignController::class,
+                            'action' => 'processActivateCampaigns'
                         ),
                     ),
                 ),
