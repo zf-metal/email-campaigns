@@ -11,6 +11,8 @@ class ModuleOptions extends \Zend\Stdlib\AbstractOptions
 
     private $pathAttachedFiles = './files';
 
+    private $delayBetweenEmails = 100;
+
     private $distributionRecordFields = [
       '@nombre'   => 'firstName',
       '@apellido' => 'lastName',
@@ -60,5 +62,22 @@ class ModuleOptions extends \Zend\Stdlib\AbstractOptions
     {
         $this->distributionRecordFields= $distributionRecordFields;
     }
+
+    /**
+     * @return int
+     */
+    public function getDelayBetweenEmails()
+    {
+        return $this->delayBetweenEmails;
+    }
+
+    /**
+     * @param int $delayBetweenEmails
+     */
+    public function setDelayBetweenEmails($delayBetweenEmails)
+    {
+        $this->delayBetweenEmails = $delayBetweenEmails;
+    }
+
 
 }

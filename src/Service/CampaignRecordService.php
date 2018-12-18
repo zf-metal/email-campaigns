@@ -10,9 +10,14 @@ use ZfMetal\EmailCampaigns\Entity\CampaignRecord;
 use ZfMetal\EmailCampaigns\Entity\CampaignRecordState;
 use ZfMetal\EmailCampaigns\Entity\DistributionList;
 use ZfMetal\EmailCampaigns\Entity\DistributionRecord;
+use ZfMetal\EmailCampaigns\Options\ModuleOptions;
 use ZfMetal\EmailCampaigns\Service\Model\CampaignObjects;
 
-
+/**
+ * Class CampaignRecordService
+ * @package ZfMetal\EmailCampaigns\Service
+ * @method ModuleOptions emailCampaignsOptions
+ */
 class CampaignRecordService
 {
 
@@ -104,6 +109,7 @@ class CampaignRecordService
                 if ($i % 100 == 0) {
                     $this->getEm()->flush();
                 }
+                usleep($this->emailCampaignsOptions()->getDelayBetweenEmails() * 1000);
             }
             $this->getEm()->flush();
         } catch (\Exception $e) {
