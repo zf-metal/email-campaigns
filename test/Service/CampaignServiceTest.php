@@ -173,6 +173,7 @@ class CampaignServiceTest extends AbstractConsoleControllerTestCase
      */
     public function testProcessCampaigns($campaignService)
     {
+        /** @var $campaignService CampaignService */
         $this->createActivatedCampaign();
         $campaigns = $this->getCampaignRepository()->findBy([
             'state' => $this->getEm()->getReference(CampaignState::class, Constants::CAMPAIGN_FINISHED)
@@ -185,7 +186,23 @@ class CampaignServiceTest extends AbstractConsoleControllerTestCase
             'state' => $this->getEm()->getReference(CampaignState::class, Constants::CAMPAIGN_FINISHED)
         ]);
         $this->assertEquals(1, count($campaigns));
+    }
 
+    /**
+     * @throws \Doctrine\ORM\ORMException
+     */
+    public function testProcessCampaignWithStatusFailed(){
+        $campaignRecordService = $this->createMock(CampaignRecordService::class);
+        $campaignRecordService->method('processCampaingRecords')->willReturn(false);
+        $campaignService = new CampaignService($this->getEm(), $campaignRecordService);
+        $this->createActivatedCampaign();
+
+        $campaignService->processCampaigns(1);
+        $campaigns = $this->getCampaignRepository()->findBy([
+            'state' => $this->getEm()->getReference(CampaignState::class, Constants::CAMPAIGN_FAILED)
+        ]);
+
+        $this->assertEquals(1, count($campaigns));
     }
 
 

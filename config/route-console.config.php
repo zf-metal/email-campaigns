@@ -9,8 +9,8 @@ return [
                         // add [ and ] if optional ( ex : [<doname>] )
                         'route' => 'activate_campaign',
                         'defaults' => array(
-                            'controller' => \ZfMetal\EmailCampaigns\Controller\BachProcessorController::class,
-                            'action' => 'activateCampaign'
+                            'controller' => \ZfMetal\EmailCampaigns\Controller\ConsoleCampaignController::class,
+                            'action' => 'activeNewCampaigns'
                         ),
                     ),
                 ),
@@ -19,8 +19,8 @@ return [
                         // add [ and ] if optional ( ex : [<doname>] )
                         'route' => 'process_campaign',
                         'defaults' => array(
-                            'controller' => \ZfMetal\EmailCampaigns\Controller\BachProcessorController::class,
-                            'action' => 'processCampaign'
+                            'controller' => \ZfMetal\EmailCampaigns\Controller\ConsoleCampaignController::class,
+                            'action' => 'processActivateCampaigns'
                         ),
                     ),
                 ),

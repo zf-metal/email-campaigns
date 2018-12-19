@@ -22,7 +22,8 @@ class CampaignRecordServiceFactory implements FactoryInterface
     {
         $em = $container->get("doctrine.entitymanager.orm_default");
         $campaignRecordService = $container->get(CampaignMailService::class);
-        return new CampaignRecordService($em, $campaignRecordService);
+        $moduleOptions = $container->get('ZfMetal\EmailCampaigns.options');
+        return new CampaignRecordService($em, $campaignRecordService, $moduleOptions);
     }
 
 

@@ -7,7 +7,6 @@ return array(
             \ZfMetal\EmailCampaigns\Controller\TemplateController::class => \ZfMetal\EmailCampaigns\Factory\Controller\TemplateControllerFactory::class,
             \ZfMetal\EmailCampaigns\Controller\DistributionRecordController::class => \ZfMetal\EmailCampaigns\Factory\Controller\DistributionRecordControllerFactory::class,
             \ZfMetal\EmailCampaigns\Controller\CampaignController::class => \ZfMetal\EmailCampaigns\Factory\Controller\CampaignControllerFactory::class,
-            \ZfMetal\EmailCampaigns\Controller\BachProcessorController::class => \ZfMetal\EmailCampaigns\Factory\Controller\BachProcessorControllerFactory::class,
             \ZfMetal\EmailCampaigns\Controller\UnsubscribeController::class => \ZfMetal\EmailCampaigns\Factory\Controller\UnsubscribeControllerFactory::class,
             \ZfMetal\EmailCampaigns\Controller\CampaignRecordController::class => \ZfMetal\EmailCampaigns\Factory\Controller\CampaignRecordControllerFactory::class,
             \ZfMetal\EmailCampaigns\Controller\InitializeController::class => \ZfMetal\EmailCampaigns\Factory\Controller\InitializeControllerFactory::class,

@@ -16,7 +16,6 @@ use ZfMetal\EmailCampaigns\Service\Model\CampaignObjects;
 /**
  * Class CampaignRecordService
  * @package ZfMetal\EmailCampaigns\Service
- * @method ModuleOptions emailCampaignsOptions
  */
 class CampaignRecordService
 {
@@ -32,12 +31,20 @@ class CampaignRecordService
     private $campaignMailService;
 
     /**
-     * CampaignRecordService constructor.
+     * @var ModuleOptions
      */
-    public function __construct(EntityManager $em, CampaignMailService $campaignMailService)
+    private $moduleOptions;
+
+    /**
+     * CampaignRecordService constructor.
+     * @param EntityManager $em
+     * @param CampaignMailService $campaignMailService
+     */
+    public function __construct(EntityManager $em, CampaignMailService $campaignMailService, ModuleOptions $moduleOptions)
     {
         $this->em = $em;
         $this->campaignMailService = $campaignMailService;
+        $this->moduleOptions = $moduleOptions;
     }
 
     /**
@@ -54,6 +61,14 @@ class CampaignRecordService
     public function getCampaignMailService()
     {
         return $this->campaignMailService;
+    }
+
+    /**
+     * @return ModuleOptions
+     */
+    public function getModuleOptions()
+    {
+        return $this->moduleOptions;
     }
 
     /**
@@ -90,14 +105,14 @@ class CampaignRecordService
      */
     public function processCampaingRecords($campaign)
     {
-        try{
+        try {
             $campaignRecords = $this->getEm()->getRepository(CampaignRecord::class)->findBy([
                 'campaign' => $this->getEm()->getReference(Campaign::class, $campaign->getId())
             ]);
             /** @var $campaign Campaign */
             $campaignObjects = new CampaignObjects($campaign);
 
-            for ($i = 0; $i < count($campaignRecords); $i++){
+            for ($i = 0; $i < count($campaignRecords); $i++) {
                 /** @var $campaignRecord CampaignRecord */
                 $campaignRecord = $campaignRecords[$i];
                 $distributionRecord = $campaignRecord->getDistributionRecord();
@@ -109,20 +124,18 @@ class CampaignRecordService
                 if ($i % 100 == 0) {
                     $this->getEm()->flush();
                 }
-                usleep($this->emailCampaignsOptions()->getDelayBetweenEmails() * 1000);
+                usleep($this->getModuleOptions()->getDelayBetweenEmails() * 1000);
             }
             $this->getEm()->flush();
         } catch (\Exception $e) {
             return false;
         }
-
         return true;
     }
 
     private function processCampaingRecord(CampaignObjects $campaignObjects, DistributionRecord $distributionRecord)
     {
         return $this->getCampaignMailService()->with($campaignObjects)->sendEmail($distributionRecord);
-
     }
 
     /**

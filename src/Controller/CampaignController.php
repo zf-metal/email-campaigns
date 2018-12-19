@@ -2,11 +2,15 @@
 
 namespace ZfMetal\EmailCampaigns\Controller;
 
+use Exception;
 use Zend\Mvc\Controller\AbstractActionController;
 use ZfMetal\Commons\Filter\RenameUpload;
+use ZfMetal\EmailCampaigns\Options\ModuleOptions;
 
 /**
- * CampaignController
+ * Class CampaignController
+ * @package ZfMetal\EmailCampaigns\Controller
+ * @method ModuleOptions emailCampaignsOptions
  */
 class CampaignController extends AbstractActionController
 {
@@ -23,42 +27,68 @@ class CampaignController extends AbstractActionController
      */
     public $grid = null;
 
+    /**
+     * @return \Doctrine\ORM\EntityManager
+     */
     public function getEm()
     {
         return $this->em;
     }
 
+    /**
+     * @param \Doctrine\ORM\EntityManager $em
+     */
     public function setEm(\Doctrine\ORM\EntityManager $em)
     {
         $this->em = $em;
     }
 
+    /**
+     * @return \Doctrine\Common\Persistence\ObjectRepository|\Doctrine\ORM\EntityRepository
+     */
     public function getEntityRepository()
     {
         return $this->getEm()->getRepository(self::ENTITY);
     }
 
+    /**
+     * @return \Doctrine\Common\Persistence\ObjectRepository|\Doctrine\ORM\EntityRepository
+     */
     public function getCampaignRepository()
     {
         return $this->getEm()->getRepository(self::ENTITY);
     }
 
+    /**
+     * CampaignController constructor.
+     * @param \Doctrine\ORM\EntityManager $em
+     * @param \ZfMetal\Datagrid\Grid $grid
+     */
     public function __construct(\Doctrine\ORM\EntityManager $em, \ZfMetal\Datagrid\Grid $grid)
     {
         $this->em = $em;
         $this->grid = $grid;
     }
 
+    /**
+     * @return \ZfMetal\Datagrid\Grid
+     */
     public function getGrid()
     {
         return $this->grid;
     }
 
+    /**
+     * @param \ZfMetal\Datagrid\Grid $grid
+     */
     public function setGrid(\ZfMetal\Datagrid\Grid $grid)
     {
         $this->grid = $grid;
     }
 
+    /**
+     * @return array
+     */
     public function gridAction()
     {
         $this->grid->addExtraColumn('Detalle', ' <a class="registroBoton btn btn-primary" href="/email-campaigns/campaign-record/grid/{{id}}">VER</a> ', 'right');
@@ -66,6 +96,11 @@ class CampaignController extends AbstractActionController
         return array("grid" => $this->grid);
     }
 
+    /**
+     * @return array|\Zend\Http\Response
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
     public function newEditAction()
     {
       $id = $this->params('id');
@@ -95,6 +130,10 @@ class CampaignController extends AbstractActionController
       return ['form' => $form];
     }
 
+    /**
+     * @param null $id
+     * @return null|object|\ZfMetal\EmailCampaigns\Entity\Campaign
+     */
     private function getCampaign($id = null){
       $campaign = null;
       if($id){
@@ -106,6 +145,13 @@ class CampaignController extends AbstractActionController
       return $campaign;
     }
 
+    /**
+     * @param array $files
+     * @param \ZfMetal\EmailCampaigns\Entity\Campaign $campaign
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws Exception
+     */
     private function processFiles($files = array(), \ZfMetal\EmailCampaigns\Entity\Campaign $campaign){
       for($i = 0; $i < count($files); $i++){
         //"target":"public/audiosTemporales","use_upload_name":1,"overwrite":1
@@ -116,10 +162,9 @@ class CampaignController extends AbstractActionController
             if (!file_exists($path)) {
                 $result = mkdir($path, 0755, true);
                 if (!$result) {
-                    throw new \Exception('Permission denied to create the folder: ' . $path);
+                    throw new Exception('Permission denied to create the folder: ' . $path);
                 }
             }
-
 
             $filter = new RenameUpload([
               'target' => $path,

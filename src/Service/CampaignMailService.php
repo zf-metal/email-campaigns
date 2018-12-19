@@ -96,8 +96,8 @@ class CampaignMailService
         try {
             $this->distributionRecord = $distributionRecord;
             $this->prepareEmailTemplate();
-            $this->prepareEmailHeader();
             $this->addAttachedFiles();
+            $this->prepareEmailHeader();
             if ($this->getMailManager()->send()) {
                 return true;
             } else {

@@ -9,6 +9,8 @@
 namespace Test\Service;
 
 use Doctrine\ORM\EntityManager;
+use PHPUnit\Framework\Constraint\Exception;
+use PHPUnit\Framework\MockObject\MockObject;
 use Zend\Test\PHPUnit\Controller\AbstractConsoleControllerTestCase;
 use ZfMetal\EmailCampaigns\Constants;
 use ZfMetal\EmailCampaigns\Entity\Campaign;
@@ -55,6 +57,10 @@ class CampaignRecordServiceTest extends AbstractConsoleControllerTestCase
         return $this->getEm()->getRepository(CampaignRecord::class);
     }
 
+    private function getModuleOptions()
+    {
+        return $this->getApplicationServiceLocator()->get('ZfMetal\EmailCampaigns.options');
+    }
 
     public function clearData()
     {
@@ -224,7 +230,7 @@ class CampaignRecordServiceTest extends AbstractConsoleControllerTestCase
         $campaignMailService = $this->createMock(CampaignMailService::class);
         $campaignMailService->method('with')->willReturn($campaignMailService);
         $campaignMailService->method('sendEmail')->willReturn(true);
-        $campaignRecordService = new CampaignRecordService($this->getEm(), $campaignMailService);
+        $campaignRecordService = new CampaignRecordService($this->getEm(), $campaignMailService, $this->getModuleOptions());
 
         $this->assertInstanceOf(CampaignRecordService::class, $campaignRecordService);
 
@@ -271,5 +277,31 @@ class CampaignRecordServiceTest extends AbstractConsoleControllerTestCase
         $campaignRecords = $this->getCampaignRecordsWithState($campaign, Constants::CAMPAIGN_RECORD_PROCESS);
 
         $this->assertEquals(10, count($campaignRecords));
+    }
+
+    /**
+     * @depends testCreateRecordsForCampaign
+     * @throws \Doctrine\ORM\ORMException
+     */
+    public function testProcessCampaignRecordsWithSendFailed()
+    {
+        $campaignMailService = $this->createMock(CampaignMailService::class);
+        $campaignMailService->method('with')->willReturn($campaignMailService);
+        $campaignMailService->method('sendEmail')->willReturn(false);
+        $campaignRecordService = new CampaignRecordService($this->getEm(), $campaignMailService, $this->getModuleOptions());
+
+        $campaign = $this->createNewCampaigns();
+        $campaignRecordService->createCampaignRecords($campaign);
+
+        /** @var $campaignRecordService CampaignRecordService */
+        $actualResult = $campaignRecordService->processCampaingRecords($campaign);
+
+        $records = $this->getEm()->getRepository(CampaignRecord::class)->findBy([
+            'campaign' => $campaign,
+            'state' => $this->getEm()->getReference(CampaignRecordState::class,Constants::CAMPAIGN_RECORD_FAILED)
+        ]);
+
+        $this->assertEquals(10, count($records));
+        $this->assertTrue($actualResult);
     }
 }
