@@ -115,6 +115,7 @@ class DistributionRecord
     public function setId($id)
     {
         $this->id = $id;
+        return $this;
     }
 
     public function getDistributionList()
@@ -125,6 +126,7 @@ class DistributionRecord
     public function setDistributionList($distributionList)
     {
         $this->distributionList = $distributionList;
+        return $this;
     }
 
     public function getFirstName()
@@ -135,6 +137,7 @@ class DistributionRecord
     public function setFirstName($firstName)
     {
         $this->firstName = $firstName;
+        return $this;
     }
 
     public function getLastName()
@@ -145,6 +148,7 @@ class DistributionRecord
     public function setLastName($lastName)
     {
         $this->lastName = $lastName;
+        return $this;
     }
 
     public function getEmail()
@@ -155,6 +159,7 @@ class DistributionRecord
     public function setEmail($email)
     {
         $this->email = $email;
+        return $this;
     }
 
     public function getPhone()
@@ -165,6 +170,7 @@ class DistributionRecord
     public function setPhone($phone)
     {
         $this->phone = $phone;
+        return $this;
     }
 
     public function getCustomerField1()
@@ -175,6 +181,7 @@ class DistributionRecord
     public function setCustomerField1($customerField1)
     {
         $this->customerField1 = $customerField1;
+        return $this;
     }
 
     public function getCustomerField2()
@@ -185,6 +192,7 @@ class DistributionRecord
     public function setCustomerField2($customerField2)
     {
         $this->customerField2 = $customerField2;
+        return $this;
     }
 
     public function getCustomerField3()
@@ -195,6 +203,7 @@ class DistributionRecord
     public function setCustomerField3($customerField3)
     {
         $this->customerField3 = $customerField3;
+        return $this;
     }
 
     public function getSubscription()
@@ -205,6 +214,7 @@ class DistributionRecord
     public function setSubscription($subscription)
     {
         $this->subscription = $subscription;
+        return $this;
     }
 
     public function __toString()

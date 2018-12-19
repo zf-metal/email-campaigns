@@ -3,7 +3,7 @@
     "description": "Zend Framework 3 Module that provides email campaigns",
     "type": "library",
     "license": "MIT",
-    "version": "1.0.0",
+    "version": "2.0.0",
     "keywords": [
 
     ],
@@ -33,10 +33,12 @@
         "zf-metal/log": "^1.0.0",
         "zf-metal/mail": "^1.0.0",
         "zf-metal/commons": "^1.3.7",
-        "zf-metal/datagrid": "^1.0.20"
+        "zf-metal/datagrid": "^1.0.20",
+        "zendframework/zend-mvc-console": "^1.2@dev"
     },
     "require-dev": {
-        "zf-metal/generator": "^1.0.4"
+        "zf-metal/generator": "^1.0.4",
+        "zendframework/zend-test": "^3.1@dev"
     },
     "autoload": {
         "psr-4": {

@@ -79,6 +79,7 @@ class DistributionList
     public function setId($id)
     {
         $this->id = $id;
+        return $this;
     }
 
     public function getNameList()
@@ -89,6 +90,7 @@ class DistributionList
     public function setNameList($nameList)
     {
         $this->nameList = $nameList;
+        return $this;
     }
 
     public function getOriginEmail()
@@ -99,6 +101,7 @@ class DistributionList
     public function setOriginEmail($originEmail)
     {
         $this->originEmail = $originEmail;
+        return $this;
     }
 
     public function getOriginName()
@@ -109,6 +112,7 @@ class DistributionList
     public function setOriginName($originName)
     {
         $this->originName = $originName;
+        return $this;
     }
 
     public function getRecords()
@@ -119,6 +123,7 @@ class DistributionList
     public function setRecords($records)
     {
         $this->records = $records;
+        return $this;
     }
 
     public function __toString()
