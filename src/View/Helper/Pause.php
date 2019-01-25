@@ -22,6 +22,11 @@ class Pause extends AbstractHelper
      */
     public function __invoke(ColumnInterface $column, array $data)
     {
+
+        if ($data['state']->getId() == 5) {
+            return "";
+        }
+
         if ($data['paused']) {
             $btn = "<a class='btn btn-success' href='/email-campaigns/campaign/pause/" . $data['id'] . "/0'>Play</a>";
         } else {
