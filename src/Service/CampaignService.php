@@ -57,6 +57,12 @@ class CampaignService
         return $campaigns;
     }
 
+
+    /**
+     * @param int $limit
+     * @return mixed
+     * @deprecated 
+     */
     public function processCampaigns($limit = 10)
     {
         $campaigns = $this->getCampaignRepository()->getActivatedCampaigns($limit);
@@ -67,6 +73,12 @@ class CampaignService
         }
 
         return $campaigns;
+    }
+
+
+    public function processRecordsCampaigns($limit = 10)
+    {
+       //TODO
     }
 
     private function createCampaignRecords($campaign)
@@ -91,6 +103,9 @@ class CampaignService
     {
         /** @var $campaign Campaign */
         $resutl = $this->processCampaignRecords($campaign);
+
+
+       //Finaliza campaña (Solo si se queda sin registros)
         $state = $resutl ? Constants::CAMPAIGN_FINISHED : Constants::CAMPAIGN_FAILED;
         $campaign->setState($this->getEm()->getReference(Constants::ENTITY_CAMPAIGN_STATE, $state));
         $campaign->setFinishDate(new \DateTime());

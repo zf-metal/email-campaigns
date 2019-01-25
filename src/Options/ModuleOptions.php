@@ -13,6 +13,8 @@ class ModuleOptions extends \Zend\Stdlib\AbstractOptions
 
     private $delayBetweenEmails = 100;
 
+    private $limitRecordsPerCicle = 10;
+
     private $distributionRecordFields = [
       '@nombre'   => 'firstName',
       '@apellido' => 'lastName',
@@ -78,6 +80,24 @@ class ModuleOptions extends \Zend\Stdlib\AbstractOptions
     {
         $this->delayBetweenEmails = $delayBetweenEmails;
     }
+
+    /**
+     * @return int
+     */
+    public function getLimitRecordsPerCicle()
+    {
+        return $this->limitRecordsPerCicle;
+    }
+
+    /**
+     * @param int $limitRecordsPerCicle
+     */
+    public function setLimitRecordsPerCicle($limitRecordsPerCicle)
+    {
+        $this->limitRecordsPerCicle = $limitRecordsPerCicle;
+    }
+    
+    
 
 
 }
