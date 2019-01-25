@@ -1,6 +1,6 @@
 <?php
 
-namespace ZfMetal\Datagrid\View\Helper;
+namespace ZfMetal\EmailCampaigns\View\Helper;
 
 use Zend\View\Helper\AbstractHelper;
 use ZfMetal\Datagrid\Column\ColumnInterface;
