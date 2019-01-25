@@ -22,10 +22,10 @@ class Pause extends AbstractHelper
      */
     public function __invoke(ColumnInterface $column, array $data)
     {
-        if ($data[$column]) {
-            $btn = "<a class='btn btn-success' href='/email-campaign/campaign/pause/" . $data['id'] . "/0'>Play</a>";
+        if ($data['paused']) {
+            $btn = "<a class='btn btn-success' href='/email-campaigns/campaign/pause/" . $data['id'] . "/0'>Play</a>";
         } else {
-            $btn = "<a class='btn btn-warning' href='/email-campaign/campaign/pause/" . $data['id'] . "/1'>Pause</a>";
+            $btn = "<a class='btn btn-warning' href='/email-campaigns/campaign/pause/" . $data['id'] . "/1'>Pause</a>";
         }
 
         return $btn;
