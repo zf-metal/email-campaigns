@@ -90,6 +90,15 @@ class Campaign
      */
     public $records = null;
 
+
+    /**
+     * @Annotation\Type("Zend\Form\Element\checkbox")
+     * @ORM\Column(type="boolean", unique=false, nullable=true, name="paused")
+     */
+    public $paused = null;
+
+
+
     /**
      * DistributionList constructor.
      */
@@ -198,6 +207,23 @@ class Campaign
     {
         $this->records = $records;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getPaused()
+    {
+        return $this->paused;
+    }
+
+    /**
+     * @param mixed $paused
+     */
+    public function setPaused($paused)
+    {
+        $this->paused = $paused;
+    }
+
 
 
 

@@ -70,6 +70,11 @@ return [
                 'records' => [
                     'hidden' => true,
                 ],
+                'paused' => [
+                    'type' => 'custom',
+                    'helper' => 'Pause',
+                    'side' => 'right'
+                ],
                 'attachedFiles' => [
                     'displayName' => 'Adjuntos',
                     'type' => 'relational',

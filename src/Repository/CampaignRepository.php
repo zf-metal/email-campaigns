@@ -53,6 +53,7 @@ class CampaignRepository extends EntityRepository
             ->select('c')
             ->from(Campaign::class, 'c')
             ->where('c.state = :state')
+            ->andWhere('c.paused != 1') //Campañas que no esten pausadas
             ->setParameter('state', $this->getEntityManager()->getReference(CampaignState::class, $state))
             ->setMaxResults($limit)
             ->getQuery()->getResult();
