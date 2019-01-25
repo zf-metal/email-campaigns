@@ -93,9 +93,9 @@ class Campaign
 
     /**
      * @Annotation\Type("Zend\Form\Element\checkbox")
-     * @ORM\Column(type="boolean", unique=false, nullable=true, name="paused")
+     * @ORM\Column(type="boolean", unique=false, nullable=false, name="paused")
      */
-    public $paused = null;
+    public $paused = 0;
 
 
 

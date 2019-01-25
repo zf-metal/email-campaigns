@@ -11,6 +11,8 @@ use ZfMetal\EmailCampaigns\Entity\CampaignRecordState;
 use ZfMetal\EmailCampaigns\Entity\DistributionList;
 use ZfMetal\EmailCampaigns\Entity\DistributionRecord;
 use ZfMetal\EmailCampaigns\Options\ModuleOptions;
+use ZfMetal\EmailCampaigns\Repository\CampaignRecordRepository;
+use ZfMetal\EmailCampaigns\Repository\CampaignRepository;
 use ZfMetal\EmailCampaigns\Service\Model\CampaignObjects;
 
 /**
@@ -53,6 +55,14 @@ class CampaignRecordService
     public function getEm()
     {
         return $this->em;
+    }
+
+    /**
+     * @return CampaignRecordRepository
+     */
+    public function getCampaignRecordRepository()
+    {
+        return $this->getEm()->getRepository(CampaignRecord::class);
     }
 
     /**
@@ -106,9 +116,11 @@ class CampaignRecordService
     public function processCampaingRecords($campaign)
     {
         try {
-            $campaignRecords = $this->getEm()->getRepository(CampaignRecord::class)->findBy([
-                'campaign' => $this->getEm()->getReference(Campaign::class, $campaign->getId())
-            ]);
+
+
+            $campaignRecords = $this->getCampaignRecordRepository()->findNewByCampaign($campaign->getId(),$this->getModuleOptions()->getLimitRecordsPerCicle());
+
+
             /** @var $campaign Campaign */
             $campaignObjects = new CampaignObjects($campaign);
 
@@ -170,5 +182,9 @@ class CampaignRecordService
         return $cr;
     }
 
+    
+    public function countNewRecordsByCampaign($campaign){
+        return $this->getCampaignRecordRepository()->countNewByCampaign($campaign);
+    }
 
 }
