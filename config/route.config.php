@@ -141,6 +141,21 @@ return [
                                 ],
                                 'type' => 'Segment',
                             ],
+                            'Pause' => [
+                                'mayTerminate' => true,
+                                'options' => [
+                                    'route' => '/pause/:id/:pause',
+                                    'constraints' => [
+                                        'id' => '[0-9]+',
+                                        'pause' => '[0-1]',
+                                    ],
+                                    'defaults' => [
+                                        'controller' => \ZfMetal\EmailCampaigns\Controller\CampaignController::CLASS,
+                                        'action' => 'pause',
+                                    ],
+                                ],
+                                'type' => 'Segment',
+                            ],
                         ],
                     ],
                     'Unsubscribe' => [

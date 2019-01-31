@@ -57,6 +57,12 @@ class CampaignService
         return $campaigns;
     }
 
+
+    /**
+     * @param int $limit
+     * @return mixed
+     * @deprecated
+     */
     public function processCampaigns($limit = 10)
     {
         $campaigns = $this->getCampaignRepository()->getActivatedCampaigns($limit);
@@ -67,6 +73,12 @@ class CampaignService
         }
 
         return $campaigns;
+    }
+
+
+    public function processRecordsCampaigns($limit = 10)
+    {
+        //TODO
     }
 
     private function createCampaignRecords($campaign)
@@ -90,12 +102,28 @@ class CampaignService
     private function processCampaign($campaign)
     {
         /** @var $campaign Campaign */
-        $resutl = $this->processCampaignRecords($campaign);
-        $state = $resutl ? Constants::CAMPAIGN_FINISHED : Constants::CAMPAIGN_FAILED;
-        $campaign->setState($this->getEm()->getReference(Constants::ENTITY_CAMPAIGN_STATE, $state));
-        $campaign->setFinishDate(new \DateTime());
-        $this->getEm()->persist($campaign);
-        $this->getEm()->flush();
+        $result = $this->processCampaignRecords($campaign);
+
+
+        //Finaliza campaña (Solo si se queda sin registros)
+        if ($this->isThereRecordsInCampaign($campaign)) {
+            $state = Constants::CAMPAIGN_ACTIVATED;
+            $campaign->setState($this->getEm()->getReference(Constants::ENTITY_CAMPAIGN_STATE, $state));
+            $this->getEm()->persist($campaign);
+            $this->getEm()->flush();
+        } else {
+            $state = Constants::CAMPAIGN_FINISHED;
+            $campaign->setState($this->getEm()->getReference(Constants::ENTITY_CAMPAIGN_STATE, $state));
+            $campaign->setFinishDate(new \DateTime());
+            $this->getEm()->persist($campaign);
+            $this->getEm()->flush();
+        }
+    }
+
+
+    private function isThereRecordsInCampaign($campaign)
+    {
+        return $this->getCampaignRecordService()->countNewRecordsByCampaign($campaign);
     }
 
     private function processCampaignRecords($campaign)

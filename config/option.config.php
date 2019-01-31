@@ -6,6 +6,7 @@ return [
         'search_campaign_limit' => 5,
         'path_attached_files' => './files',
         'delay_between_emails' => 100, // Milliseconds
+        'limit_records_per_cicle' => 1,
         'distribution_record_fields' => [
             '@firstName' => 'firstName',
             '@lastName' => 'lastName',

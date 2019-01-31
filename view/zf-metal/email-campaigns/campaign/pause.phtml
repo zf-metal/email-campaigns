@@ -1,0 +1,13 @@
+<div class="panel ">
+    <div class="panel-body">
+
+        <?php if ($campaign->getPaused()): ?>
+            <span> La campaña <?php echo $campaign->getId(); ?> ha sido <strong>Pausada</strong> </span>
+        <?php else: ?>
+            <span> La campaña <?php echo $campaign->getId(); ?> ha sido <strong>Reanudada</strong> </span>
+        <?php endif; ?>
+
+    </div>
+</div>
+<br>
+<a class="btn btn-primary text-center" href="/email-campaigns/campaign/grid">Listado de Campañas</a>

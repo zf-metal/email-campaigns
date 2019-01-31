@@ -96,6 +96,21 @@ class CampaignController extends AbstractActionController
         return array("grid" => $this->grid);
     }
 
+
+    public function pauseAction()
+    {
+        $id = $this->params('id');
+        $pause = $this->params('pause');
+        $campaign = $this->getCampaign($id);
+
+        $campaign->setPaused($pause);
+        $this->getEm()->persist($campaign);
+        $this->getEm()->flush();
+
+        return ["campaign" => $campaign];
+    }
+
+
     /**
      * @return array|\Zend\Http\Response
      * @throws \Doctrine\ORM\ORMException
