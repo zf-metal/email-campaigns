@@ -92,7 +92,7 @@ class Campaign
 
 
     /**
-     * @Annotation\Type("Zend\Form\Element\checkbox")
+     * @Annotation\Type("Zend\Form\Element\Checkbox")
      * @ORM\Column(type="boolean", unique=false, nullable=false, name="paused")
      */
     public $paused = 0;
